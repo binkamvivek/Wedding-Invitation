@@ -1,5 +1,6 @@
 /* Dheeraj & Angel — Luxury Wedding Invitation Logic. Vanilla JS. */
 import EnvelopeIntro from './envelope-animation.js';
+import './painterly.js';
 
 (() => {
 'use strict';
