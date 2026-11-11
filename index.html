@@ -4,17 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Dheeraj &amp; Angle — Wedding Invitation</title>
-<meta name="description" content="Dheeraj &amp; Angle are getting married on 28 December 2026 at All Saints Church, Secunderabad.">
+<meta name="description" content="Dheeraj &amp; Angle are getting married on Monday, 28 December 2026 at All Saints Church, Secunderabad.">
 <meta name="theme-color" content="#F8F4E9">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23C5A66A'/%3E%3Ctext x='16' y='21' font-size='13' text-anchor='middle' fill='%23F8F4E9' font-family='serif' font-style='italic'%3ED%26A%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>tailwind.config={theme:{extend:{colors:{ivory:'#F8F4E9',olive:'#68734D',forest:'#263C2E',gold:'#C5A66A',blush:'#D9A9A0',beige:'#E9DDC9'},fontFamily:{display:['Playfair Display','serif'],serif:['Cormorant Garamond','serif'],sans:['Montserrat','sans-serif']}}}}</script>
 <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-ivory text-forest font-serif" data-theme="light">
+<body class="bg-ivory text-forest font-serif locked" data-theme="light">
 
 <!-- ============ SHARED ART (symbols, filters) ============ -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -51,8 +51,7 @@
   <symbol id="ph-b" viewBox="0 0 100 130"><rect width="100" height="130" fill="url(#gPh)"/><path d="M30 60C26 100 20 118 14 130H86C80 118 74 100 70 60Z" fill="#3A2C25"/><path d="M12 130C14 100 32 92 50 92s36 8 38 38Z" fill="#D9A9A0"/><rect x="43" y="76" width="14" height="18" fill="#D8B49A"/><ellipse cx="50" cy="56" rx="16" ry="20" fill="#E2BFA6"/><path d="M33 56C30 28 70 28 67 56C64 42 54 36 50 36S36 42 33 56Z" fill="#3A2C25"/></symbol>
 
   <!-- icons (Lucide paths) -->
-  <symbol id="i-l" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
-  <symbol id="i-r" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
   <symbol id="i-cal" viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8M3 10h18M16 19h6M19 16v6"/></symbol>
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
   <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol>
@@ -60,7 +59,7 @@
 
 <main id="stage" aria-live="polite">
 
-<!-- ============ SLIDE 01 — THE GRAND INVITATION ============ -->
+<!-- ============ SECTION 01 — THE GRAND INVITATION ============ -->
 <section class="slide on" id="s1" data-theme="light" aria-label="Invitation">
   <div class="paper"></div>
   <svg class="crn tl" viewBox="0 0 200 130" aria-hidden="true"><use href="#br"/></svg>
@@ -72,17 +71,39 @@
     <h1 class="names" aria-label="Dheeraj and Angle"><span data-split>Dheeraj</span><em class="amp">&amp;</em><span data-split>Angle</span></h1>
     <div class="orn"><i></i><svg viewBox="-12 -12 24 24"><use href="#bl" x="-12" y="-12" width="24" height="24"/></svg><i></i></div>
     <p class="script">are getting married</p>
+    
+    <!-- Downward scroll cue after opening -->
+    <button class="scroll-cue" id="cue1" aria-label="Scroll to the couple's story">
+      <span>Scroll Down</span>
+      <svg class="ic down-anim"><use href="#i-down"/></svg>
+    </button>
   </div>
 
+  <!-- ENVELOPE COVER WITH TIED SILK CHIFFON RIBBON BOW -->
   <div class="cover" id="cover">
-    <div class="half top"><svg class="fill"><use href="#coast" width="100%" height="100%"/></svg><i class="rib"></i></div>
-    <div class="half bot"><svg class="fill"><use href="#coast" width="100%" height="100%"/></svg><i class="rib"></i></div>
-    <button class="seal" id="seal" aria-label="Tap to open the invitation"><span>D<small>&amp;</small>A</span></button>
-    <p class="tap">Tap to Open</p>
+    <div class="half top">
+      <svg class="fill"><use href="#coast" width="100%" height="100%"/></svg>
+      <i class="rib rib-top"></i>
+    </div>
+    <div class="half bot">
+      <svg class="fill"><use href="#coast" width="100%" height="100%"/></svg>
+      <i class="rib rib-bot"></i>
+    </div>
+
+    <!-- The Tied Ribbon Bow (Tapping unties it) -->
+    <div class="bow-touch-target" id="seal" role="button" tabindex="0" aria-label="Tap to untie ribbon and open invitation">
+      <div class="bow-container">
+        <img src="/assets/ribbon-bow.webp" alt="Tied Silk Chiffon Ribbon Bow" class="bow-fabric-img">
+        <div class="seal-medallion">
+          <span>D<small>&amp;</small>A</span>
+        </div>
+      </div>
+      <p class="tap">Tap to Untie &amp; Open</p>
+    </div>
   </div>
 </section>
 
-<!-- ============ SLIDE 02 — THE COUPLE ============ -->
+<!-- ============ SECTION 02 — THE COUPLE ============ -->
 <section class="slide" id="s2" data-theme="light" aria-label="The couple">
   <div class="sky" data-d="6"></div>
   <div class="inner">
@@ -91,20 +112,25 @@
     <div class="orn rv" style="--d:2"><i></i><svg viewBox="-12 -12 24 24"><use href="#bl" x="-12" y="-12" width="24" height="24"/></svg><i></i></div>
     <div class="pair">
       <figure class="pf rv" style="--d:3">
-        <div class="arch"><svg class="ph" viewBox="0 0 100 130" preserveAspectRatio="xMidYMid slice"><use href="#ph-g" width="100" height="130"/></svg><img src="assets/dheeraj.jpg" alt="Dheeraj" loading="lazy" onerror="this.remove()"><svg class="fb" viewBox="-12 -12 24 24"><use href="#bl" x="-12" y="-12" width="24" height="24"/></svg></div>
+        <div class="arch"><svg class="ph" viewBox="0 0 100 130" preserveAspectRatio="xMidYMid slice"><use href="#ph-g" width="100" height="130"/></svg><img src="/assets/dheeraj.jpg" alt="Dheeraj" loading="lazy" onerror="this.remove()"><svg class="fb" viewBox="-12 -12 24 24"><use href="#bl" x="-12" y="-12" width="24" height="24"/></svg></div>
         <figcaption><span class="mono">D</span><b class="name" data-split>Dheeraj</b><small>The Groom</small></figcaption>
       </figure>
       <span class="amp rv" style="--d:5">&amp;</span>
       <figure class="pf rv" style="--d:4">
-        <div class="arch"><svg class="ph" viewBox="0 0 100 130" preserveAspectRatio="xMidYMid slice"><use href="#ph-b" width="100" height="130"/></svg><img src="assets/angle.jpg" alt="Angle" loading="lazy" onerror="this.remove()"><svg class="fb" viewBox="-12 -12 24 24"><use href="#bl" x="-12" y="-12" width="24" height="24"/></svg></div>
+        <div class="arch"><svg class="ph" viewBox="0 0 100 130" preserveAspectRatio="xMidYMid slice"><use href="#ph-b" width="100" height="130"/></svg><img src="/assets/angle.jpg" alt="Angle" loading="lazy" onerror="this.remove()"><svg class="fb" viewBox="-12 -12 24 24"><use href="#bl" x="-12" y="-12" width="24" height="24"/></svg></div>
         <figcaption><span class="mono">A</span><b class="name" data-split>Angle</b><small>The Bride</small></figcaption>
       </figure>
     </div>
     <p class="script rv" style="--d:6">Two souls, one journey, and a lifetime of beautiful memories.</p>
+
+    <button class="scroll-cue" id="cue2" aria-label="Scroll to the celebration details">
+      <span>Scroll Down</span>
+      <svg class="ic down-anim"><use href="#i-down"/></svg>
+    </button>
   </div>
 </section>
 
-<!-- ============ SLIDE 03 — THE CELEBRATION ============ -->
+<!-- ============ SECTION 03 — THE CELEBRATION ============ -->
 <section class="slide dark" id="s3" data-theme="dark" aria-label="The celebration">
   <div class="inner">
     <svg class="church rv" style="--d:0" viewBox="0 0 300 250" role="img" aria-label="Watercolor illustration of a church">
@@ -139,10 +165,15 @@
       <button class="btn" id="calBtn" type="button"><svg class="ic"><use href="#i-cal"/></svg>Add to Calendar</button>
       <a class="btn" id="mapBtn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=All+Saints+Church+Secunderabad"><svg class="ic"><use href="#i-pin"/></svg>Get Directions</a>
     </div>
+
+    <button class="scroll-cue light-cue" id="cue3" aria-label="Scroll to countdown and RSVP">
+      <span>Scroll Down</span>
+      <svg class="ic down-anim"><use href="#i-down"/></svg>
+    </button>
   </div>
 </section>
 
-<!-- ============ SLIDE 04 — COUNTDOWN, RSVP & BLESSINGS ============ -->
+<!-- ============ SECTION 04 — COUNTDOWN, RSVP & BLESSINGS ============ -->
 <section class="slide" id="s4" data-theme="light" aria-label="Countdown and RSVP">
   <div class="inner">
     <p class="eyebrow rv" style="--d:0">28 December 2026 · 11:00 AM IST</p>
@@ -192,11 +223,16 @@
 
 <canvas id="petals" aria-hidden="true"></canvas>
 
-<nav class="nav" aria-label="Invitation navigation">
-  <button id="prev" class="arrow" aria-label="Previous page"><svg class="ic"><use href="#i-l"/></svg></button>
-  <div class="dots" role="tablist"></div>
-  <button id="next" class="arrow" aria-label="Next page"><svg class="ic"><use href="#i-r"/></svg></button>
+<!-- SLIM VERTICAL RIGHT-EDGE PROGRESS NAVIGATION -->
+<nav class="v-nav" aria-label="Section navigation">
+  <div class="v-dots" role="tablist">
+    <button class="v-dot" data-idx="0" role="tab" aria-selected="true" aria-label="Go to Invitation"></button>
+    <button class="v-dot" data-idx="1" role="tab" aria-selected="false" aria-label="Go to The Couple"></button>
+    <button class="v-dot" data-idx="2" role="tab" aria-selected="false" aria-label="Go to Celebration"></button>
+    <button class="v-dot" data-idx="3" role="tab" aria-selected="false" aria-label="Go to Countdown &amp; RSVP"></button>
+  </div>
 </nav>
+
 <script type="module" src="/app.js"></script>
 </body>
 </html>
