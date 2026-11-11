@@ -555,7 +555,126 @@ function buildLayer(slide) {
   if (paper) paper.after(layer); else slide.prepend(layer);
 }
 
+
+/* ----------------------------------------------------------------------
+   6. Wedding-attire portraits (replaces the plain placeholder figures)
+      Same 100 x 130 box and the same names (#ph-g, #ph-b), so the existing
+      <use> tags in index.html pick them up with no HTML change.
+      Real photos still win: if you add dheeraj.jpg / angel.jpg later, nothing
+      here needs to be removed.
+   ---------------------------------------------------------------------- */
+const GROOM = `
+  <rect width="100" height="130" fill="url(#gPh)"/>
+  <!-- jacket -->
+  <path d="M4 130C6 100 28 91 50 91s44 9 46 39Z" fill="#263C2E"/>
+  <path d="M4 130C6 100 28 91 50 91c-14 6-26 16-30 39Z" fill="#fff" opacity=".07"/>
+  <!-- shirt + waistcoat -->
+  <path d="M40 90L50 124L60 90Z" fill="#FBF7EE"/>
+  <path d="M41 104L50 130L59 104L50 114Z" fill="#D8C9AA"/>
+  <circle cx="50" cy="119" r="1.1" fill="#C5A66A"/><circle cx="50" cy="125" r="1.1" fill="#C5A66A"/>
+  <!-- satin lapels -->
+  <path d="M38 91L49 122L32 113L27 99Z" fill="#34503F" stroke="#C5A66A" stroke-width=".5" stroke-opacity=".6"/>
+  <path d="M62 91L51 122L68 113L73 99Z" fill="#34503F" stroke="#C5A66A" stroke-width=".5" stroke-opacity=".6"/>
+  <!-- neck, collar, bow tie -->
+  <rect x="43" y="74" width="14" height="19" fill="#D8B49A"/>
+  <path d="M41 87L50 96L44 99L37 92Z" fill="#FBF7EE"/><path d="M59 87L50 96L56 99L63 92Z" fill="#FBF7EE"/>
+  <path d="M50 94L39 88L39 100Z" fill="#C5A66A"/><path d="M50 94L61 88L61 100Z" fill="#C5A66A"/>
+  <path d="M50 94L39 88L39 100Z" fill="#fff" opacity=".12"/>
+  <rect x="47" y="91.5" width="6" height="6" rx="1.6" fill="#A8894A"/>
+  <!-- boutonniere -->
+  <path d="M62 104l5 -3" stroke="#68734D" stroke-width="1.4" stroke-linecap="round"/>
+  <ellipse cx="66.5" cy="106" rx="3.1" ry="2.5" fill="#68734D"/>
+  <circle cx="64.5" cy="102.5" r="3.4" fill="#D9A9A0" stroke="#B8737A" stroke-width=".5"/>
+  <circle cx="64.5" cy="102.5" r="1.4" fill="#F4D8D1"/>
+  <!-- ears, face, hair -->
+  <ellipse cx="33.2" cy="57" rx="2.6" ry="4.4" fill="#D8B49A"/><ellipse cx="66.8" cy="57" rx="2.6" ry="4.4" fill="#D8B49A"/>
+  <ellipse cx="50" cy="56" rx="17" ry="21" fill="#E2BFA6"/>
+  <path d="M33 52C32 30 68 28 67 52C62 42 40 42 33 52Z" fill="#3A2C25"/>
+  <path d="M38 36C46 31 58 31 64 38" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity=".16"/>`;
+
+const BRIDE = `
+  <rect width="100" height="130" fill="url(#gPh)"/>
+  <!-- long veil -->
+  <path d="M50 20C24 22 19 62 13 130H87C81 62 76 22 50 20Z" fill="#FFFFFF" opacity=".5"/>
+  <path d="M50 20C24 22 19 62 13 130M50 20C76 22 81 62 87 130" fill="none" stroke="#C5A66A" stroke-width=".7" stroke-dasharray="1.2 2.2" opacity=".75"/>
+  <!-- hair, over the veil -->
+  <path d="M31 58C27 96 22 116 16 130H84C78 116 73 96 69 58Z" fill="#3A2C25"/>
+  <!-- gown -->
+  <path d="M10 130C12 106 26 97 35 99Q42 104 50 108Q58 104 65 99C74 97 88 106 90 130Z" fill="#FBF7EE"/>
+  <path d="M10 130C12 106 26 97 35 99Q42 104 50 108Q58 104 65 99C74 97 88 106 90 130Z" fill="none" stroke="#E9DDC9" stroke-width=".8"/>
+  <path d="M35 99Q42 104 50 108Q58 104 65 99" fill="none" stroke="#C5A66A" stroke-width=".9"/>
+  <g fill="#C5A66A" opacity=".55">
+    <circle cx="26" cy="112" r=".9"/><circle cx="32" cy="118" r=".9"/><circle cx="22" cy="120" r=".9"/>
+    <circle cx="74" cy="112" r=".9"/><circle cx="68" cy="118" r=".9"/><circle cx="78" cy="120" r=".9"/>
+    <circle cx="40" cy="124" r=".9"/><circle cx="60" cy="124" r=".9"/>
+  </g>
+  <!-- neck + chest -->
+  <rect x="43.5" y="74" width="13" height="20" fill="#D8B49A"/>
+  <path d="M30 98Q50 84 70 98Q66 103 65 99Q58 104 50 108Q42 104 35 99Q34 103 30 98Z" fill="#E2BFA6"/>
+  <!-- pearls -->
+  <g fill="#FFFDF8" stroke="#D8C9AA" stroke-width=".3">
+    <circle cx="41" cy="91.5" r="1.3"/><circle cx="44.5" cy="93.6" r="1.3"/><circle cx="48" cy="94.6" r="1.3"/>
+    <circle cx="52" cy="94.6" r="1.3"/><circle cx="55.5" cy="93.6" r="1.3"/><circle cx="59" cy="91.5" r="1.3"/>
+  </g>
+  <!-- face + hair + tiara -->
+  <ellipse cx="50" cy="56" rx="16" ry="20" fill="#E2BFA6"/>
+  <path d="M33 56C30 28 70 28 67 56C64 42 54 36 50 36S36 42 33 56Z" fill="#3A2C25"/>
+  <path d="M37 37Q50 27 63 37" fill="none" stroke="#C5A66A" stroke-width="1.6" stroke-linecap="round"/>
+  <g fill="#E4CC93"><circle cx="50" cy="29.6" r="1.7"/><circle cx="43" cy="31.5" r="1.2"/><circle cx="57" cy="31.5" r="1.2"/></g>
+  <circle cx="35" cy="38" r="2.6" fill="#FBF7EE" stroke="#D9A9A0" stroke-width=".5"/><circle cx="65" cy="38" r="2.6" fill="#FBF7EE" stroke="#D9A9A0" stroke-width=".5"/>
+  <!-- bouquet -->
+  <g transform="translate(0 -9)">
+    <path d="M38 118l-6 6M62 118l6 6" stroke="#68734D" stroke-width="1.4" stroke-linecap="round"/>
+    <ellipse cx="38" cy="118" rx="6" ry="3" fill="#68734D" transform="rotate(-25 38 118)"/>
+    <ellipse cx="62" cy="118" rx="6" ry="3" fill="#68734D" transform="rotate(25 62 118)"/>
+    <circle cx="42" cy="113" r="5.4" fill="#D9A9A0" stroke="#B8737A" stroke-width=".5"/>
+    <circle cx="58" cy="113" r="5.4" fill="#EBC0B8" stroke="#B8737A" stroke-width=".5"/>
+    <circle cx="50" cy="110" r="6.2" fill="#FBF7EE" stroke="#D9A9A0" stroke-width=".6"/>
+    <circle cx="50" cy="110" r="2.4" fill="#F0CBC6"/><circle cx="42" cy="113" r="2" fill="#F4D8D1"/><circle cx="58" cy="113" r="2" fill="#F6E1DA"/>
+    <circle cx="50" cy="117" r="4.6" fill="#FBF7EE" stroke="#D9A9A0" stroke-width=".5"/>
+  </g>`;
+
+function dressPortraits() {
+  [['ph-g', GROOM], ['ph-b', BRIDE]].forEach(([id, art]) => {
+    const old = document.getElementById(id);
+    if (!old) return;
+    const sym = document.createElementNS(SVGNS, 'symbol');
+    sym.setAttribute('id', id);
+    sym.setAttribute('viewBox', '0 0 100 130');
+    sym.innerHTML = art;
+    old.replaceWith(sym);
+    // re-point every <use> so Safari/Chrome redraw the new artwork
+    document.querySelectorAll(`use[href="#${id}"]`).forEach((u) => {
+      u.setAttribute('href', '#');
+      u.setAttribute('href', `#${id}`);
+    });
+  });
+}
+
+/* ----------------------------------------------------------------------
+   7. Full screen on the first tap (Android Chrome and most mobile browsers)
+      Browsers only allow full screen from a real tap, so it starts when the
+      guest taps the bow to open the invitation. iPhone Safari does not allow
+      it at all: there, guests use "Add to Home Screen" (see manifest).
+   ---------------------------------------------------------------------- */
+function wireFullscreen() {
+  const el = document.documentElement;
+  const request = el.requestFullscreen || el.webkitRequestFullscreen;
+  if (!request) return;
+  if (!matchMedia('(pointer: coarse)').matches) return;          // phones/tablets only
+  if (matchMedia('(display-mode: fullscreen), (display-mode: standalone)').matches) return;
+  const go = () => {
+    if (document.fullscreenElement || document.webkitFullscreenElement) return;
+    try {
+      const r = request.call(el, { navigationUI: 'hide' });
+      if (r && r.catch) r.catch(() => {});
+    } catch (e) { /* ignore */ }
+  };
+  document.addEventListener('click', go, { once: true, capture: true });
+}
+
 async function init() {
+  wireFullscreen();
   const root = document.documentElement;
   try {
     const [light, dark, h, frame] = await Promise.all([
@@ -578,6 +697,7 @@ async function init() {
 
   addDefs();
   document.querySelectorAll('#stage > .slide').forEach(buildLayer);
+  dressPortraits();
 }
 
 if (document.readyState === 'loading') {

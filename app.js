@@ -239,7 +239,8 @@ function petals() {
   // Re-allocating the canvas each time makes scrolling stutter, so only react to
   // real changes (width change = rotate/resize, or a big height change).
   const onResize = () => {
-    if (innerWidth !== lastW || Math.abs(innerHeight - lastH) > 160) size();
+    if (innerWidth !== lastW || Math.abs(innerHeight - lastH) > 90) size();
+    lastW = innerWidth; lastH = innerHeight;
   };
   addEventListener('resize', onResize);
   document.addEventListener('visibilitychange', () => { run = !document.hidden; run && requestAnimationFrame(loop); });
