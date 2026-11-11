@@ -295,22 +295,50 @@ button {
   position: absolute;
   inset: 0;
   z-index: 10;
-  transition: visibility 0s 2s;
+  pointer-events: auto;
+  perspective: 1200px;
+  overflow: hidden;
 }
 
-.half {
+/* Flaps diagonal split from center (50% 50%) */
+.flap {
   position: absolute;
   inset: 0;
-  transition: transform 1.5s cubic-bezier(.7, 0, .2, 1) .25s;
-  will-change: transform;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  transition: transform 1.8s cubic-bezier(0.25, 1, 0.35, 1) 0.9s,
+              opacity 0.6s ease 2.3s;
 }
 
-.half.top {
-  clip-path: polygon(0 0, 100% 0, 100% 46%, 50% 60%, 0 46%);
+/* Top flap: diagonal from (0,0) -> (100%,0) -> (100%,50%) -> (50%,50%) -> (0,50%) or full diagonal triangle */
+.flap-top {
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 50%, 0 50%);
+  transform-origin: top center;
 }
 
-.half.bot {
-  clip-path: polygon(0 46%, 50% 60%, 100% 46%, 100% 100%, 0 100%);
+/* Bottom flap: diagonal from (0,50%) -> (50%,50%) -> (100%,50%) -> (100%,100%) -> (0,100%) */
+.flap-bot {
+  clip-path: polygon(0 50%, 50% 50%, 100% 50%, 100% 100%, 0 100%);
+  transform-origin: bottom center;
+}
+
+/* Soft shadow and subtle depth along the diagonal fold seams */
+.flap-shadow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  transition: opacity 1.2s ease 0.9s;
+}
+
+.flap-top .flap-shadow {
+  background: linear-gradient(to top, rgba(38, 60, 46, 0.45) 0%, rgba(38, 60, 46, 0.1) 15%, transparent 40%);
+}
+
+.flap-bot .flap-shadow {
+  background: linear-gradient(to bottom, rgba(38, 60, 46, 0.45) 0%, rgba(38, 60, 46, 0.1) 15%, transparent 40%);
 }
 
 .fill {
@@ -320,42 +348,92 @@ button {
   height: 100%;
 }
 
-/* Vertical Silk Ribbon Band */
-.rib {
+/* ================================================================
+   FULL-HEIGHT SOFT TEXTURED CLOTH RIBBON
+   ================================================================ */
+.ribbon-streamer {
   position: absolute;
   left: 50%;
   top: 0;
   bottom: 0;
-  width: 52px;
+  width: clamp(48px, 11vw, 56px);
   transform: translateX(-50%);
-  background: linear-gradient(90deg, #d9d0bb 0%, #FAF6EE 25%, #FFFFFF 50%, #FAF6EE 75%, #d9d0bb 100%);
-  box-shadow: 0 0 16px rgba(38, 60, 46, .22);
+  z-index: 15;
+  pointer-events: none;
+  box-shadow: 
+    0 0 18px rgba(38, 60, 46, 0.25),
+    -3px 0 10px rgba(0, 0, 0, 0.12),
+    3px 0 10px rgba(0, 0, 0, 0.12);
+  /* Organic cloth texture with woven fabric grain and fine gold stitched selvage edges */
+  background: 
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.45) 0 2px, rgba(238, 230, 215, 0.3) 2px 4px),
+    linear-gradient(90deg, 
+      rgba(215, 198, 172, 0.9) 0%, 
+      rgba(247, 243, 235, 0.96) 18%, 
+      #FFFFFF 50%, 
+      rgba(247, 243, 235, 0.96) 82%, 
+      rgba(215, 198, 172, 0.9) 100%
+    );
+  transition: transform 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.5s,
+              opacity 0.7s ease 1.6s;
+  will-change: transform, opacity;
 }
 
-.rib::before, .rib::after {
+/* Soft fine gold thread sewn along both selvage edges */
+.ribbon-streamer::before,
+.ribbon-streamer::after {
   content: "";
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 1px;
-  background: var(--go);
-  opacity: .75;
+  width: 1.5px;
+  background: linear-gradient(180deg, 
+    rgba(197, 166, 106, 0.4) 0%, 
+    rgba(197, 166, 106, 0.9) 50%, 
+    rgba(197, 166, 106, 0.4) 100%
+  );
+}
+.ribbon-streamer::before { left: 4px; }
+.ribbon-streamer::after { right: 4px; }
+
+/* Subtle fabric grain overlay */
+.ribbon-texture {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.6) 0%, transparent 80%);
+  opacity: 0.5;
 }
 
-.rib::before { left: 5px; }
-.rib::after { right: 5px; }
+/* ================================================================
+   ANIMATION TRIGGERED ON OPEN (.open class)
+   ================================================================ */
 
-.open .half.top {
-  transform: translateY(-104%);
+/* 1. Ribbon slides downward and away until off-screen */
+.open .ribbon-streamer {
+  transform: translate(-50%, 120vh);
+  opacity: 0;
 }
 
-.open .half.bot {
-  transform: translateY(104%);
+/* 2. Top flaps fold upward, bottom flaps fold downward */
+.open .flap-top {
+  transform: translateY(-105%) rotateX(12deg);
+  opacity: 0;
 }
 
+.open .flap-bot {
+  transform: translateY(105%) rotateX(-12deg);
+  opacity: 0;
+}
+
+.open .flap-shadow {
+  opacity: 0;
+}
+
+/* 3. Cover layer finishes and is completely unmounted from pointer events */
 .open .cover {
   pointer-events: none;
   visibility: hidden;
+  transition: visibility 0s 2.9s;
 }
 
 /* TIED SILK CHIFFON RIBBON BOW */
@@ -454,21 +532,35 @@ button {
 }
 
 /* UNTYING ANIMATION WHEN TAPPED */
+.open .tap {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
 .open .bow-touch-target {
+  pointer-events: none;
+  transition: opacity 0.4s ease 1.2s, visibility 0s 1.6s;
   opacity: 0;
   visibility: hidden;
-  pointer-events: none;
 }
 
 .open .bow-fabric-img {
-  transform: scale(1.6) rotate(10deg);
+  /* Knot unties & loops loosen with soft rotation and slight drop */
+  transform: scale(1.15) rotate(-6deg) translateY(24px);
   opacity: 0;
-  filter: blur(6px);
+  filter: blur(3px);
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.15s,
+              opacity 0.9s ease 0.45s,
+              filter 0.9s ease 0.45s;
 }
 
 .open .seal-medallion {
-  transform: translate(-50%, -50%) scale(0.2);
+  /* Seal shifts and drops subtly with untying knot before fading */
+  transform: translate(-50%, calc(-50% + 20px)) scale(0.85);
   opacity: 0;
+  transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s,
+              opacity 0.8s ease 0.45s;
 }
 
 /* Sparkles on slide 1 */

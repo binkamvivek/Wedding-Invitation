@@ -81,13 +81,20 @@
 
   <!-- ENVELOPE COVER WITH TIED SILK CHIFFON RIBBON BOW -->
   <div class="cover" id="cover">
-    <div class="half top">
+    <!-- Top Flap (folds upward) -->
+    <div class="flap flap-top">
       <svg class="fill"><use href="#coast" width="100%" height="100%"/></svg>
-      <i class="rib rib-top"></i>
+      <div class="flap-shadow"></div>
     </div>
-    <div class="half bot">
+    <!-- Bottom Flap (folds downward) -->
+    <div class="flap flap-bot">
       <svg class="fill"><use href="#coast" width="100%" height="100%"/></svg>
-      <i class="rib rib-bot"></i>
+      <div class="flap-shadow"></div>
+    </div>
+
+    <!-- Full-height soft textured cloth ribbon -->
+    <div class="ribbon-streamer" id="ribbonStreamer" aria-hidden="true">
+      <div class="ribbon-texture"></div>
     </div>
 
     <!-- The Tied Ribbon Bow (Tapping unties it) -->

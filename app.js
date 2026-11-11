@@ -125,7 +125,7 @@ if (sessionStorage.getItem('da-opened') === 'true') {
   if (cover) cover.setAttribute('aria-hidden', 'true');
 }
 
-// Tap on tied ribbon bow to untie and open
+// Tap on tied ribbon bow, button, or ribbon to untie and open
 if (seal) {
   seal.addEventListener('click', openInvite);
   seal.addEventListener('keydown', e => {
@@ -134,6 +134,12 @@ if (seal) {
       openInvite();
     }
   });
+}
+const ribbonEl = $('#ribbonStreamer');
+if (ribbonEl) {
+  ribbonEl.style.pointerEvents = 'auto';
+  ribbonEl.style.cursor = 'pointer';
+  ribbonEl.addEventListener('click', openInvite);
 }
 
 // Downward scroll cue buttons
