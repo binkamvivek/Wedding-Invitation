@@ -23,6 +23,16 @@
   <meta name="twitter:description" content="28 December 2026 · All Saints Church, Secunderabad">
   <meta name="twitter:image" content="https://wedding-invitation-two-chi-53.vercel.app/og-image-v3.jpg">
 
+  <script>
+    (function () {
+      try {
+        if (location.pathname === '/' || location.pathname === '/index.html') {
+          history.replaceState(null, '', '/invite' + location.search + location.hash);
+        }
+      } catch (e) {}
+    })();
+  </script>
+
   <!-- ===== FAVICON ===== -->
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
