@@ -109,11 +109,11 @@ function openInvite() {
   const cover = $('#cover');
   if (cover) {
     cover.setAttribute('aria-hidden', 'true');
-    // At 2.4s: remove the envelope layer completely from DOM so invitation is visible and scrollable
+    // At 3.8s: remove the envelope layer completely from DOM so invitation is visible and scrollable
     setTimeout(() => {
       cover.style.display = 'none';
       cover.style.pointerEvents = 'none';
-    }, 2400);
+    }, 3800);
   }
 
   // Subtle haptic feedback if available
