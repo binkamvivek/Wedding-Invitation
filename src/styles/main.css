@@ -11,8 +11,6 @@
     --color-gold-dark: #8F6E2E;
     --color-blush: #D9A9A0;
     --color-beige: #E9DDC9;
-    --color-sea-blue: #4F7FA8;
-    --color-terracotta: #C9825B;
 
     --ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
     --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -29,31 +27,27 @@
   }
 
   @media (min-width: 1024px) {
-    html {
-      scroll-snap-type: y proximity;
-    }
+    html { scroll-snap-type: y proximity; }
   }
 
   body {
     margin: 0;
     padding: 0;
     width: 100%;
-    min-height: 100vh;
     min-height: 100dvh;
     background-color: var(--color-ivory);
     touch-action: pan-y;
   }
 
-  /* When locked (envelope closed), prevent scrolling */
   body.scroll-locked {
     overflow: hidden !important;
     touch-action: none !important;
   }
 }
 
-/* ========================================================
+/* ================================================================
    FULL-SCREEN VERTICAL PANELS
-   ======================================================== */
+   ================================================================ */
 .invitation-panel {
   position: relative;
   width: 100%;
@@ -70,14 +64,16 @@
   box-sizing: border-box;
 }
 
+/* Panel 6 (RSVP) allows inner scroll */
 .invitation-panel.allow-inner-scroll {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  scroll-snap-stop: normal;
 }
 
-/* ========================================================
+/* ================================================================
    PAPER TEXTURES
-   ======================================================== */
+   ================================================================ */
 .paper-ivory-texture {
   background-color: #F8F4E9;
   background-image: url('/assets/paper-ivory.webp');
@@ -90,113 +86,94 @@
   background-repeat: repeat;
 }
 
-/* ========================================================
-   TORN PAPER SEAMS (BETWEEN LIGHT AND DARK PANELS)
-   ======================================================== */
-.torn-paper-edge-bottom {
-  clip-path: polygon(
-    0% 0%, 100% 0%, 100% 98.4%,
-    98.5% 99.2%, 97% 98.5%, 95.2% 99.4%, 93% 98.6%, 91% 99.3%,
-    88.8% 98.4%, 86.5% 99.5%, 84% 98.5%, 81.5% 99.4%, 79% 98.3%,
-    76.5% 99.2%, 74% 98.5%, 71.5% 99.4%, 68.5% 98.4%, 66% 99.3%,
-    63% 98.5%, 60% 99.5%, 57% 98.3%, 54% 99.2%, 51% 98.5%,
-    48% 99.4%, 45% 98.3%, 42% 99.2%, 39% 98.5%, 36% 99.4%,
-    33% 98.4%, 30% 99.3%, 27% 98.5%, 24% 99.5%, 21% 98.3%,
-    18% 99.2%, 15% 98.5%, 12% 99.4%, 9% 98.3%, 6% 99.2%,
-    3% 98.5%, 0% 99.3%
-  );
-}
-
-.torn-paper-edge-top {
-  clip-path: polygon(
-    0% 1.6%, 3% 0.7%, 6% 1.5%, 9% 0.8%, 12% 1.7%, 15% 0.8%,
-    18% 1.6%, 21% 0.7%, 24% 1.5%, 27% 0.8%, 30% 1.6%, 33% 0.7%,
-    36% 1.5%, 39% 0.8%, 42% 1.6%, 45% 0.7%, 48% 1.7%, 51% 0.8%,
-    54% 1.5%, 57% 0.8%, 60% 1.7%, 63% 0.8%, 66% 1.6%, 68.5% 0.7%,
-    71.5% 1.5%, 74% 0.8%, 76.5% 1.7%, 79% 0.8%, 81.5% 1.6%, 84% 0.7%,
-    86.5% 1.5%, 88.8% 0.8%, 91% 1.7%, 93% 0.8%, 95.2% 1.6%, 97% 0.7%,
-    98.5% 1.5%, 100% 0.7%, 100% 100%, 0% 100%
-  );
-}
-
-/* ========================================================
-   LAYERED MOTION & STAGGERED REVEALS (BLUR-TO-SHARP)
-   ======================================================== */
+/* ================================================================
+   STAGGERED BLUR-TO-SHARP REVEAL SYSTEM
+   ================================================================ */
 .reveal-item {
   opacity: 0;
-  filter: blur(8px);
-  transform: translateY(22px);
-  transition: 
-    opacity 0.9s var(--ease-luxury),
-    filter 0.9s var(--ease-luxury),
-    transform 0.9s var(--ease-luxury);
+  filter: blur(6px);
+  transform: translateY(18px);
+  transition:
+    opacity 0.85s var(--ease-luxury),
+    filter 0.85s var(--ease-luxury),
+    transform 0.85s var(--ease-luxury);
   will-change: opacity, filter, transform;
 }
 
 .is-in-view .reveal-item {
   opacity: 1;
-  filter: blur(0px);
+  filter: blur(0);
   transform: translateY(0);
 }
 
-/* Stagger delay helpers */
-.is-in-view .delay-1 { transition-delay: 100ms; }
-.is-in-view .delay-2 { transition-delay: 220ms; }
-.is-in-view .delay-3 { transition-delay: 340ms; }
-.is-in-view .delay-4 { transition-delay: 460ms; }
-.is-in-view .delay-5 { transition-delay: 580ms; }
-.is-in-view .delay-6 { transition-delay: 700ms; }
+/* Stagger delays */
+.is-in-view .delay-1 { transition-delay: 80ms; }
+.is-in-view .delay-2 { transition-delay: 200ms; }
+.is-in-view .delay-3 { transition-delay: 320ms; }
+.is-in-view .delay-4 { transition-delay: 440ms; }
+.is-in-view .delay-5 { transition-delay: 560ms; }
+.is-in-view .delay-6 { transition-delay: 680ms; }
 
-/* Animated draw-on gold keylines */
+/* ================================================================
+   ANIMATED GOLD KEYLINES (stroke-dashoffset draw-on)
+   ================================================================ */
 .draw-line {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  transition: stroke-dashoffset 1.8s var(--ease-luxury) 0.3s;
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  transition: stroke-dashoffset 2s var(--ease-luxury) 0.4s;
 }
 
 .is-in-view .draw-line {
   stroke-dashoffset: 0;
 }
 
-/* ========================================================
-   PANEL 1: 3D ENVELOPE CEREMONY & SATIN RIBBON
-   ======================================================== */
+/* ================================================================
+   PANEL 1: ENVELOPE CEREMONY
+   ================================================================ */
 .envelope-container {
   perspective: 1200px;
   perspective-origin: center center;
 }
 
-.envelope-card-outer {
-  transform-style: preserve-3d;
-  transition: transform 0.8s var(--ease-luxury);
+/* Top flap — folds open in 3D */
+.envelope-flap-top {
+  transform-origin: top center;
+  transition: transform 1.1s var(--ease-luxury);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-/* Satin ribbon bow */
+.is-envelope-opened .envelope-flap-top {
+  transform: rotateX(176deg);
+  z-index: 5 !important;
+}
+
+/* Ribbon disappears on open */
 .satin-ribbon-band {
-  background: linear-gradient(90deg, #EFE6D8 0%, #FAF5EE 50%, #EFE6D8 100%);
-  border-top: 1px solid rgba(197, 166, 106, 0.55);
-  border-bottom: 1px solid rgba(197, 166, 106, 0.55);
-  box-shadow: 0 4px 14px rgba(40, 30, 20, 0.15);
+  height: 36px;
+  background: linear-gradient(90deg, #EBE0CC 0%, #FAF5EE 45%, #F5EDE0 70%, #EBE0CC 100%);
+  border-top: 1px solid rgba(197, 166, 106, 0.5);
+  border-bottom: 1px solid rgba(197, 166, 106, 0.5);
+  box-shadow: 0 3px 12px rgba(40, 30, 20, 0.12);
+  transition: transform 0.65s var(--ease-luxury), opacity 0.55s ease-out;
   transform-origin: center;
-  transition: transform 0.75s var(--ease-luxury), opacity 0.6s ease-out;
 }
 
 .is-envelope-opened .satin-ribbon-band {
-  transform: scaleX(0);
+  transform: scaleX(0.02) scaleY(0.6);
   opacity: 0;
 }
 
-/* Wax seal button */
+/* Wax seal */
 .wax-seal {
-  width: 78px;
-  height: 78px;
+  width: 76px;
+  height: 76px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #F5E5C0 0%, #D8B778 45%, #C5A66A 70%, #8A6828 100%);
-  box-shadow: 
-    0 12px 28px rgba(45, 30, 15, 0.45),
-    inset 0 2px 4px rgba(255, 255, 255, 0.6),
-    inset 0 -3px 6px rgba(60, 40, 10, 0.6);
-  position: relative;
+  background: radial-gradient(circle at 33% 28%, #F7E9C4 0%, #DCBC7A 40%, #C5A66A 68%, #8A6828 100%);
+  box-shadow:
+    0 10px 28px rgba(45, 30, 10, 0.5),
+    inset 0 2px 5px rgba(255, 255, 255, 0.55),
+    inset 0 -3px 7px rgba(60, 40, 10, 0.65);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -205,87 +182,134 @@
   outline: none;
   transition: transform 0.3s var(--ease-luxury), box-shadow 0.3s var(--ease-luxury);
   user-select: none;
+  position: relative;
 }
 
 .wax-seal:hover {
-  transform: scale(1.06);
-  box-shadow: 
-    0 16px 36px rgba(45, 30, 15, 0.55),
-    inset 0 2px 5px rgba(255, 255, 255, 0.7),
-    inset 0 -3px 6px rgba(60, 40, 10, 0.7);
+  transform: scale(1.07);
+  box-shadow:
+    0 14px 36px rgba(45, 30, 10, 0.6),
+    inset 0 2px 5px rgba(255, 255, 255, 0.65),
+    inset 0 -3px 7px rgba(60, 40, 10, 0.75);
 }
 
+/* Pulsing ring around seal */
 .wax-seal::after {
   content: '';
   position: absolute;
-  inset: -14px;
+  inset: -13px;
   border-radius: 50%;
-  border: 1.5px solid rgba(197, 166, 106, 0.6);
-  animation: seal-pulse 2.4s infinite cubic-bezier(0.25, 1, 0.5, 1);
+  border: 1.5px solid rgba(197, 166, 106, 0.55);
+  animation: seal-pulse 2.5s infinite cubic-bezier(0.25, 1, 0.5, 1);
   pointer-events: none;
 }
 
 @keyframes seal-pulse {
-  0% { transform: scale(0.85); opacity: 0.9; }
-  60% { transform: scale(1.35); opacity: 0; }
-  100% { transform: scale(1.4); opacity: 0; }
+  0%   { transform: scale(0.82); opacity: 0.85; }
+  65%  { transform: scale(1.4);  opacity: 0; }
+  100% { transform: scale(1.45); opacity: 0; }
 }
 
-/* 3D Flap opening */
-.envelope-flap-top {
-  transform-origin: top center;
-  transition: transform 1.2s var(--ease-luxury);
-}
-
-.is-envelope-opened .envelope-flap-top {
-  transform: rotateX(178deg);
-  z-index: 5 !important;
-}
-
-.envelope-card-rise {
-  transition: transform 1.3s var(--ease-luxury) 0.5s, opacity 0.8s ease-out;
-}
-
-.is-envelope-opened .envelope-card-rise {
-  transform: translateY(-80px) scale(1.03);
-}
-
-/* Floating scroll down chevron hint */
+/* Animated chevron scroll cue */
 .scroll-down-cue {
-  animation: float-cue 2.2s infinite ease-in-out;
+  animation: float-cue 2.4s ease-in-out infinite;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 @keyframes float-cue {
-  0%, 100% { transform: translateY(0); opacity: 0.85; }
-  50% { transform: translateY(8px); opacity: 1; }
+  0%, 100% { transform: translateY(0);   opacity: 0.8; }
+  50%       { transform: translateY(7px); opacity: 1; }
 }
 
-/* ========================================================
-   SLIM FIXED PROGRESS INDICATOR (6 DOTS ON RIGHT EDGE)
-   ======================================================== */
+/* ================================================================
+   PANEL 3: PORTRAIT FRAMES
+   ================================================================ */
+.portrait-frame {
+  width: clamp(130px, 38vw, 165px);
+  aspect-ratio: 3 / 4;
+  border: 1px solid rgba(197, 166, 106, 0.45);
+}
+
+/* Illustrated placeholder when image is missing */
+.portrait-placeholder {
+  background: linear-gradient(160deg, #E9DDC9 0%, #D9A9A0 50%, #C5A66A20 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.portrait-placeholder::after {
+  content: 'D';
+  font-family: 'Pinyon Script', cursive;
+  font-size: 4rem;
+  color: rgba(197, 166, 106, 0.6);
+}
+
+/* ================================================================
+   PANEL 4: CELEBRATION — TORN PAPER SEAM
+   ================================================================ */
+/* SVG torn-paper seam is inline in HTML now. These clip-paths are
+   kept as utilities for other panels if needed. */
+.torn-paper-edge-bottom {
+  clip-path: polygon(
+    0% 0%, 100% 0%, 100% 95%,
+    97% 98%, 94% 95%, 91% 99%, 88% 95%, 85% 98%,
+    82% 94%, 79% 98%, 76% 95%, 73% 99%, 70% 95%,
+    67% 98%, 64% 94%, 61% 99%, 58% 95%, 55% 98%,
+    52% 94%, 49% 98%, 46% 95%, 43% 99%, 40% 95%,
+    37% 98%, 34% 94%, 31% 98%, 28% 95%, 25% 99%,
+    22% 94%, 19% 98%, 16% 95%, 13% 99%, 10% 95%,
+    7% 98%, 4% 95%, 1% 98%, 0% 95%
+  );
+}
+
+/* ================================================================
+   PANEL 5: COUNTDOWN DIGIT ANIMATION
+   ================================================================ */
+/* Isolate wreath container for proper layering */
+.wreath-frame-container {
+  isolation: isolate;
+  background: transparent;
+}
+
+.countdown-digit {
+  display: inline-block;
+  transition: transform 0.3s var(--ease-luxury), opacity 0.3s ease-out;
+}
+
+.countdown-digit.rolling {
+  transform: translateY(-6px);
+  opacity: 0;
+}
+
+/* ================================================================
+   SLIM PROGRESS INDICATOR (RIGHT EDGE, 6 DOTS)
+   ================================================================ */
 .progress-nav {
   position: fixed;
-  right: 12px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 50;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 8px 5px;
+  gap: 9px;
+  padding: 7px 4px;
   border-radius: 9999px;
-  background: rgba(248, 244, 233, 0.65);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(197, 166, 106, 0.35);
-  box-shadow: 0 4px 16px rgba(38, 60, 46, 0.1);
+  background: rgba(248, 244, 233, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(197, 166, 106, 0.3);
+  box-shadow: 0 4px 18px rgba(38, 60, 46, 0.1);
 }
 
 .progress-dot {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background-color: rgba(197, 166, 106, 0.45);
+  background-color: rgba(197, 166, 106, 0.4);
   transition: all 0.4s var(--ease-luxury);
   border: none;
   padding: 0;
@@ -294,26 +318,32 @@
 
 .progress-dot:hover {
   background-color: var(--color-gold);
-  transform: scale(1.25);
+  transform: scale(1.3);
 }
 
 .progress-dot.active {
-  height: 18px;
+  height: 20px;
   border-radius: 9999px;
   background-color: var(--color-gold);
-  box-shadow: 0 0 8px rgba(197, 166, 106, 0.6);
+  box-shadow: 0 0 8px rgba(197, 166, 106, 0.55);
 }
 
-/* ========================================================
-   DATE STRIP HEART HIGHLIGHT (PANEL 4)
-   ======================================================== */
+/* On dark panels, invert the pill */
+.theme-dark .progress-nav {
+  background: rgba(38, 60, 46, 0.7);
+  border-color: rgba(197, 166, 106, 0.25);
+}
+
+/* ================================================================
+   DATE STRIP HEART BADGE
+   ================================================================ */
 .date-heart-badge {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
 }
 
 .date-heart-badge::before {
@@ -322,28 +352,31 @@
   inset: 0;
   border: 1.5px solid var(--color-gold);
   border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  transform: scale(1.15);
-  box-shadow: 0 0 12px rgba(197, 166, 106, 0.4);
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(197, 166, 106, 0.35);
 }
 
-/* ========================================================
-   LUXURY BUTTONS: GOLD SWEEP HOVER & ACTIVE SCALE
-   ======================================================== */
+/* ================================================================
+   BUTTONS: GOLD SWEEP + OUTLINE
+   ================================================================ */
 .btn-gold-sweep {
   position: relative;
-  background: linear-gradient(135deg, #C5A66A 0%, #D8B778 50%, #C5A66A 100%);
+  background: linear-gradient(135deg, #BF9B5C 0%, #D8B778 40%, #C5A66A 70%, #BF9B5C 100%);
   background-size: 200% 100%;
   background-position: 0% 0%;
   color: #263C2E;
-  font-family: Montserrat, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  transition: background-position 0.6s var(--ease-luxury), transform 0.2s ease, box-shadow 0.3s ease;
+  letter-spacing: 0.08em;
+  transition: background-position 0.65s var(--ease-luxury), transform 0.2s ease, box-shadow 0.3s ease;
   overflow: hidden;
+  border: none;
+  cursor: pointer;
 }
 
 .btn-gold-sweep:hover {
   background-position: 100% 0%;
-  box-shadow: 0 6px 20px rgba(197, 166, 106, 0.4);
+  box-shadow: 0 6px 22px rgba(197, 166, 106, 0.4);
 }
 
 .btn-gold-sweep:active {
@@ -352,15 +385,19 @@
 
 .btn-gold-outline {
   position: relative;
-  border: 1px solid rgba(197, 166, 106, 0.7);
+  border: 1px solid rgba(197, 166, 106, 0.65);
   color: #F8F4E9;
-  font-family: Montserrat, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
+  letter-spacing: 0.08em;
   transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
 }
 
 .btn-gold-outline:hover {
-  background-color: rgba(197, 166, 106, 0.18);
+  background-color: rgba(197, 166, 106, 0.16);
   border-color: #C5A66A;
 }
 
@@ -368,21 +405,21 @@
   transform: scale(0.97);
 }
 
-/* ========================================================
+/* ================================================================
    WISHES WALL AUTO-SCROLL TICKER
-   ======================================================== */
+   ================================================================ */
 .wishes-ticker-container {
   overflow: hidden;
   position: relative;
-  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
-  -webkit-mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
 }
 
 .wishes-ticker-track {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  animation: vertical-ticker 36s linear infinite;
+  gap: 10px;
+  animation: vertical-ticker 38s linear infinite;
 }
 
 .wishes-ticker-container:hover .wishes-ticker-track,
@@ -391,25 +428,42 @@
 }
 
 @keyframes vertical-ticker {
-  0% { transform: translateY(0); }
+  0%   { transform: translateY(0); }
   100% { transform: translateY(-50%); }
 }
 
-/* ========================================================
-   TOUCH TARGETS & FOCUS RINGS
-   ======================================================== */
+/* Individual wish card */
+.wish-card {
+  background: rgba(248, 244, 233, 0.9);
+  border: 1px solid rgba(197, 166, 106, 0.3);
+  padding: 10px 12px;
+  text-align: left;
+  animation: wish-fade-in 0.6s var(--ease-luxury) forwards;
+}
+
+@keyframes wish-fade-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ================================================================
+   TOUCH TARGETS & FOCUS
+   ================================================================ */
 button, a, input, textarea {
   min-height: 44px;
 }
 
-button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
   outline: 2px solid var(--color-gold);
   outline-offset: 3px;
 }
 
-/* ========================================================
-   REDUCED MOTION OVERRIDES
-   ======================================================== */
+/* ================================================================
+   REDUCED MOTION
+   ================================================================ */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -418,9 +472,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
     scroll-behavior: auto !important;
   }
 
-  html {
-    scroll-snap-type: none !important;
-  }
+  html { scroll-snap-type: none !important; }
 
   .reveal-item {
     opacity: 1 !important;
@@ -428,15 +480,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
     transform: none !important;
   }
 
-  .wishes-ticker-track {
-    animation: none !important;
-  }
-
-  #ambient-canvas {
-    display: none !important;
-  }
-
-  .wax-seal::after {
-    display: none !important;
-  }
+  .wishes-ticker-track { animation: none !important; }
+  #ambient-canvas { display: none !important; }
+  .wax-seal::after { display: none !important; }
+  .scroll-down-cue { animation: none !important; opacity: 0.85 !important; }
 }

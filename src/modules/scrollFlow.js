@@ -173,7 +173,11 @@ export class ScrollFlowController {
           const scrollY = window.scrollY;
           this.parallaxElements.forEach((el) => {
             const speed = parseFloat(el.dataset.parallaxSpeed) || 0.85;
-            const offset = (scrollY * (1 - speed)).toFixed(1);
+            // Use panel-relative offset so parallax stays within its container
+            const parentPanel = el.closest('.invitation-panel');
+            const panelTop = parentPanel ? parentPanel.offsetTop : 0;
+            const relativeScroll = scrollY - panelTop;
+            const offset = (relativeScroll * (1 - speed)).toFixed(1);
             el.style.transform = `translate3d(0, ${offset}px, 0)`;
           });
           ticking = false;
