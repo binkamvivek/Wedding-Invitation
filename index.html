@@ -13,6 +13,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script>tailwind.config={theme:{extend:{colors:{ivory:'#F8F4E9',olive:'#68734D',forest:'#263C2E',gold:'#C5A66A',blush:'#D9A9A0',beige:'#E9DDC9'},fontFamily:{display:['Playfair Display','serif'],serif:['Cormorant Garamond','serif'],sans:['Montserrat','sans-serif']}}}}</script>
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="envelope-animation.css">
 </head>
 <body class="bg-ivory text-forest font-serif locked" data-theme="light">
 
@@ -79,49 +80,99 @@
     </button>
   </div>
 
-  <!-- ENVELOPE COVER WITH TOP FOLDING FLAP & POCKET (Matches Reference Video) -->
-  <div class="cover" id="cover">
-    <!-- Classic Envelope Top Flap that folds upward in 3D -->
-    <div class="flap flap-top" aria-hidden="true">
-      <svg class="fill"><use href="#coast" width="100%" height="100%"/></svg>
-      <div class="flap-shadow"></div>
-    </div>
-    <!-- Envelope Pocket (holds invitation card) -->
-    <div class="flap flap-pocket" aria-hidden="true">
-      <svg class="fill"><use href="#coast" width="100%" height="100%"/></svg>
-      <div class="pocket-shadow"></div>
-    </div>
+  <div class="cover" id="cover" style="--s:1"> <!-- --s = speed multiplier: 1 = reference speed, 0.7 = faster -->
 
-    <!-- Full-height soft textured cloth ribbon -->
-    <div class="ribbon-streamer" id="ribbonStreamer" aria-hidden="true">
-      <div class="ribbon-texture"></div>
-    </div>
+  <!-- SVG filters (fabric fray) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="eiFrayBow" x="-4%" y="-6%" width="108%" height="112%">
+        <feTurbulence type="fractalNoise" baseFrequency=".5" numOctaves="2" seed="3" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6"/>
+      </filter>
+      <filter id="eiFrayRibbon" x="-8%" y="0" width="116%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency=".012 .22" numOctaves="1" seed="7" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <linearGradient id="eiLoopL" x1="1" y1="0" x2="0" y2="0">
+        <stop offset="0" stop-color="#D6CDBA"/><stop offset=".45" stop-color="#F3EEE2"/><stop offset="1" stop-color="#FCFAF4"/>
+      </linearGradient>
+      <linearGradient id="eiLoopR" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#D6CDBA"/><stop offset=".45" stop-color="#F3EEE2"/><stop offset="1" stop-color="#FCFAF4"/>
+      </linearGradient>
+      <linearGradient id="eiKnot" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#FCFAF4"/><stop offset="1" stop-color="#D2C9B4"/>
+      </linearGradient>
+    </defs>
+  </svg>
 
-    <!-- The Tied Ribbon Bow separated into anatomical parts -->
-    <div class="bow-touch-target" id="seal" role="button" tabindex="0" aria-label="Tap to untie ribbon and open invitation">
-      <div class="bow-container">
-        <!-- Hanging Tails -->
-        <div class="bow-part bow-tails">
-          <img src="/assets/ribbon-bow.webp" alt="" class="bow-sub-img tails-crop">
-        </div>
-        <!-- Left Loop -->
-        <div class="bow-part bow-loop-left">
-          <img src="/assets/ribbon-bow.webp" alt="" class="bow-sub-img left-crop">
-        </div>
-        <!-- Right Loop -->
-        <div class="bow-part bow-loop-right">
-          <img src="/assets/ribbon-bow.webp" alt="" class="bow-sub-img right-crop">
-        </div>
-        <!-- Center Knot & D&A Gold Seal -->
-        <div class="bow-part bow-knot">
-          <div class="seal-medallion">
-            <span>D<small>&amp;</small>A</span>
-          </div>
-        </div>
-      </div>
-      <p class="tap">Tap to Untie &amp; Open</p>
-    </div>
+  <!-- 1. Inside of the envelope (revealed when the flap lifts) -->
+  <div class="env-liner" aria-hidden="true">
+    <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="liner-seam">
+      <polyline points="0,37 50,54 100,37" fill="none" stroke="#3a2a18" stroke-width="7" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    </svg>
+    <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMin slice" class="liner-art">
+      <g fill="none" stroke="#FFF8EA" stroke-width=".7" stroke-linecap="round" opacity=".55">
+        <path d="M100 18c-14 8-24 22-24 38 12-2 22-10 24-24 2 14 12 22 24 24 0-16-10-30-24-38Z"/>
+        <path d="M60 70c10 6 22 6 32 0M108 70c10 6 22 6 32 0"/>
+        <path d="M30 40c18 4 30 18 34 36M170 40c-18 4-30 18-34 36"/>
+        <circle cx="100" cy="92" r="16"/><circle cx="100" cy="92" r="21" stroke-dasharray="1.5 3"/>
+        <path d="M20 110c20-6 40 0 56 16M180 110c-20-6-40 0-56 16"/>
+      </g>
+    </svg>
   </div>
+
+  <!-- 2. Pocket (painted envelope body with a V-shaped top edge) -->
+  <div class="env-pocket" aria-hidden="true">
+    <svg class="fill"><use href="#coast" width="100%" height="100%"/></svg>
+    <div class="pocket-shade"></div>
+  </div>
+
+  <!-- 3. Top flap (pointed), hinged at the top edge, folds open in 3D -->
+  <svg class="env-flap-shadow" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <polygon points="0,0 100,0 100,68.52 50,100 0,68.52" fill="#1b1409"/>
+  </svg>
+  <div class="env-hinge" aria-hidden="true">
+    <div class="flap-face flap-front">
+      <svg class="fill"><use href="#coast" width="100%" height="100%"/></svg>
+    </div>
+    <div class="flap-face flap-back"></div>
+  </div>
+
+  <!-- 4. Chiffon ribbon (full-height) + bow -->
+  <div class="ribbon" id="ribbonStreamer" aria-hidden="true"><div class="ribbon-band"></div></div>
+
+  <div class="bow-touch-target" id="seal" role="button" tabindex="0"
+       aria-label="Tap to untie the ribbon and open the invitation">
+    <svg class="bow" viewBox="0 0 400 220" aria-hidden="true" focusable="false">
+      <g filter="url(#eiFrayBow)">
+        <g class="bow-l">
+          <path d="M196 96C150 76 82 52 14 60L9 84L13 104L7 126L12 150C80 140 140 130 196 124Z" fill="url(#eiLoopL)"/>
+          <path d="M196 100C140 84 80 70 14 72L12 96C80 92 140 104 196 108Z" fill="#fff" opacity=".35"/>
+          <path d="M196 108C140 100 70 96 11 110" fill="none" stroke="#8c7d5f" stroke-opacity=".28" stroke-width="1"/>
+        </g>
+        <g class="bow-r">
+          <path d="M204 96C250 76 318 52 386 60L391 84L387 104L393 126L388 150C320 140 260 130 204 124Z" fill="url(#eiLoopR)"/>
+          <path d="M204 100C260 84 320 70 386 72L388 96C320 92 260 104 204 108Z" fill="#fff" opacity=".35"/>
+          <path d="M204 108C260 100 330 96 389 110" fill="none" stroke="#8c7d5f" stroke-opacity=".28" stroke-width="1"/>
+        </g>
+        <g class="bow-knot">
+          <rect x="184" y="90" width="32" height="40" rx="11" fill="url(#eiKnot)"/>
+          <path d="M188 104Q200 99 212 104M188 116Q200 121 212 116" fill="none" stroke="#8c7d5f" stroke-opacity=".4" stroke-width="1"/>
+        </g>
+      </g>
+    </svg>
+
+    <!-- tap hint: hand in a pulsing circle (hidden the moment you tap) -->
+    <span class="hand-hint" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="#fff" stroke="#7a4636" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/>
+        <path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/>
+        <path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/>
+        <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>
+      </svg>
+    </span>
+  </div>
+</div>
 </section>
 
 <!-- ============ SECTION 02 — THE COUPLE ============ -->

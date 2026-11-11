@@ -1,4 +1,6 @@
 /* Dheeraj & Angel — Luxury Wedding Invitation Logic. Vanilla JS. */
+import EnvelopeIntro from './envelope-animation.js';
+
 (() => {
 'use strict';
 const $ = (s, r = document) => r.querySelector(s);
@@ -100,40 +102,13 @@ function openInvite() {
   if (opened) return;
   opened = true;
   sessionStorage.setItem('da-opened', 'true');
-
-  // Trigger untying visual animation
-  s1.classList.add('open');
-  document.body.classList.add('opened');
-  document.body.classList.remove('locked');
-
-  const cover = $('#cover');
-  if (cover) {
-    cover.setAttribute('aria-hidden', 'true');
-    // At 3.8s: remove the envelope layer completely from DOM so invitation is visible and scrollable
-    setTimeout(() => {
-      cover.style.display = 'none';
-      cover.style.pointerEvents = 'none';
-    }, 3800);
-  }
-
-  // Subtle haptic feedback if available
-  if (navigator && navigator.vibrate) {
-    try { navigator.vibrate(20); } catch {}
-  }
+  EnvelopeIntro.open();
 }
 
 // Restore state if opened in same session
 if (sessionStorage.getItem('da-opened') === 'true') {
   opened = true;
-  s1.classList.add('open');
-  document.body.classList.add('opened');
-  document.body.classList.remove('locked');
-  const cover = $('#cover');
-  if (cover) {
-    cover.setAttribute('aria-hidden', 'true');
-    cover.style.display = 'none';
-    cover.style.pointerEvents = 'none';
-  }
+  EnvelopeIntro.skip();
 }
 
 // Tap on tied ribbon bow, button, or ribbon to untie and open

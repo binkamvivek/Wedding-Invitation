@@ -1,0 +1,251 @@
+/* ==========================================================================
+   envelope-animation.css
+   Opening sequence: tied chiffon bow -> bow unties -> ribbon slides away ->
+   pointed flap lifts in 3D -> painted pocket slides down -> card text fades in.
+
+   Timeline (seconds after the tap, at --s:1). Edit the numbers to retime.
+     0.00 - 0.25  tap hint fades
+     0.30 - 1.70  bow loops droop + collapse into the knot
+     1.70 - 2.65  knot + ribbon slide down off-screen
+     2.40 - 4.90  top flap rotates open (3D)
+     4.30 - 6.70  pocket slides down
+     4.90 - 6.50  inner liner dissolves into the ivory card
+     6.60 -  ...  card content fades in (staggered)
+   Everything is scaled by --s on #cover (style="--s:1"). Use 0.7 for faster.
+   Only transform / opacity are animated (GPU friendly).
+   ========================================================================== */
+
+/* ---------- Stage ---------- */
+.cover {
+  --s: 1;
+  --t: calc(1s * var(--s));
+  --u: min(100vw, 56vh);
+  --u: min(100vw, 56dvh);            /* ribbon / bow sizing basis */
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  overflow: hidden;
+  perspective: 1500px;
+  perspective-origin: 50% 0;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+.cover.is-done { display: none; }
+
+.cover .fill {
+  position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+}
+.cover .fill-img { /* optional: if you swap <use> for an <img> */
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
+}
+
+/* ---------- Inside of the envelope ---------- */
+.env-liner {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 22%, #EADDC4 0%, #D3BF9F 55%, #B79E7C 100%);
+  will-change: opacity;
+}
+.env-liner svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.liner-seam { filter: blur(9px); opacity: .5; }
+
+/* ---------- Pocket (envelope body, V-notched top) ---------- */
+.env-pocket {
+  position: absolute; inset: 0; z-index: 4;
+  clip-path: polygon(0 37%, 50% 54%, 100% 37%, 100% 100%, 0 100%);
+  will-change: transform;
+}
+.pocket-shade {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(38,60,46,.26) 0%, transparent 34%);
+}
+
+/* ---------- Top flap ---------- */
+.env-flap-shadow {
+  position: absolute; left: 0; top: 0; width: 100%; height: 54%;
+  z-index: 5; pointer-events: none;
+  opacity: .5; filter: blur(5px); transform: translateY(5px);
+}
+.env-hinge {
+  position: absolute; left: 0; top: 0; width: 100%; height: 54%;
+  z-index: 6;
+  transform-origin: 50% 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.flap-face {
+  position: absolute; inset: 0; overflow: hidden;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+}
+.flap-front {
+  clip-path: polygon(0 0, 100% 0, 100% 68.52%, 50% 100%, 0 68.52%);
+}
+.flap-front .fill,
+.flap-front .fill-img { height: 185.19%; bottom: auto; }  /* 100 / 54: keeps the art continuous with the pocket */
+.flap-front::after {   /* darkens as the flap tilts away from the light */
+  content: ""; position: absolute; inset: 0; opacity: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(60,40,20,0) 0%, rgba(60,40,20,.55) 100%);
+}
+.flap-back {
+  clip-path: polygon(0 100%, 100% 100%, 100% 31.48%, 50% 0, 0 31.48%);
+  transform: rotateX(180deg);
+  background: linear-gradient(180deg, #E4D5B8 0%, #CDB898 60%, #BBA283 100%);
+}
+
+/* ---------- Chiffon ribbon ---------- */
+.ribbon {
+  position: absolute; z-index: 15; pointer-events: none;
+  left: calc(50% - var(--u) * .11);
+  width: calc(var(--u) * .22);
+  top: -8vh; bottom: -8vh;
+  top: -8dvh; bottom: -8dvh;
+  will-change: transform;
+}
+.ribbon-band {
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.22) 0 1px, rgba(90,70,40,.012) 1px 3px),
+    linear-gradient(90deg, #E7E0CF 0%, #F6F2E8 16%, #FFFFFF 50%, #F6F2E8 84%, #E7E0CF 100%);
+  filter: url(#eiFrayRibbon) drop-shadow(0 6px 10px rgba(38,50,40,.28));
+}
+
+/* ---------- Bow ---------- */
+.bow-touch-target {
+  position: absolute; z-index: 20;
+  width: calc(var(--u) * .98);
+  height: calc(var(--u) * .98 * .55);
+  left: calc(50% - var(--u) * .49);
+  top: calc(54% - var(--u) * .98 * .275);
+  cursor: pointer; user-select: none; -webkit-user-select: none;
+  will-change: transform;
+}
+.bow-touch-target:focus-visible { outline: 2px solid #C5A66A; outline-offset: 4px; border-radius: 6px; }
+.bow { display: block; width: 100%; height: 100%; overflow: visible;
+       filter: drop-shadow(0 7px 8px rgba(40,30,20,.3)); }
+.bow-l, .bow-r, .bow-knot { transform-box: fill-box; }
+.bow-l { transform-origin: 100% 50%; animation: ei-sway-l 3.6s ease-in-out infinite; }
+.bow-r { transform-origin: 0% 50%;   animation: ei-sway-r 3.6s ease-in-out infinite; }
+.bow-knot { transform-origin: 50% 50%; }
+
+@keyframes ei-sway-l { 0%,100% { transform: rotate(0) scaleY(1); } 50% { transform: rotate(-1.6deg) scaleY(1.03); } }
+@keyframes ei-sway-r { 0%,100% { transform: rotate(0) scaleY(1); } 50% { transform: rotate(1.6deg) scaleY(1.03); } }
+
+/* Tap hint (hand in circle) */
+.hand-hint {
+  position: absolute; left: 50%; top: -6%;
+  width: calc(var(--u) * .13); height: calc(var(--u) * .13);
+  margin: calc(var(--u) * -.13) 0 0 calc(var(--u) * -.065);
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,.22);
+  border: 1px solid rgba(255,255,255,.75);
+  animation: ei-hint 2s ease-in-out infinite;
+  pointer-events: none;
+}
+.hand-hint svg { width: 52%; height: 52%; }
+.hand-hint::after {
+  content: ""; position: absolute; inset: -1px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.8);
+  animation: ei-ring 2s ease-out infinite;
+}
+@keyframes ei-hint { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(3px) scale(.94); } }
+@keyframes ei-ring { 0% { transform: scale(1); opacity: .9; } 100% { transform: scale(1.7); opacity: 0; } }
+
+/* ==========================================================================
+   OPENING SEQUENCE  (triggered by  #s1.open )
+   ========================================================================== */
+
+/* 0.00 - 0.25  hint fades, bow stops accepting taps */
+#s1.open .hand-hint { animation: none; opacity: 0; transition: opacity calc(.25 * var(--t)) ease; }
+#s1.open .hand-hint::after { animation: none; }
+#s1.open .bow-touch-target { pointer-events: none; cursor: default; }
+
+/* 0.30 - 1.70  bow unties */
+#s1.open .bow-l    { animation: ei-untie-l calc(1.4 * var(--t)) cubic-bezier(.45,0,.25,1) calc(.3 * var(--t)) both; }
+#s1.open .bow-r    { animation: ei-untie-r calc(1.4 * var(--t)) cubic-bezier(.45,0,.25,1) calc(.3 * var(--t)) both; }
+#s1.open .bow-knot { animation: ei-knot    calc(1.4 * var(--t)) cubic-bezier(.45,0,.25,1) calc(.3 * var(--t)) both; }
+
+@keyframes ei-untie-l {
+  0%   { transform: rotate(0) scale(1, 1);        opacity: 1; }
+  30%  { transform: rotate(-9deg) scale(.86, 1.04); opacity: 1; }
+  75%  { transform: rotate(-16deg) scale(.38, .62); opacity: 1; }
+  100% { transform: rotate(-20deg) scale(.04, .3);  opacity: 0; }
+}
+@keyframes ei-untie-r {
+  0%   { transform: rotate(0) scale(1, 1);        opacity: 1; }
+  30%  { transform: rotate(9deg) scale(.86, 1.04);  opacity: 1; }
+  75%  { transform: rotate(16deg) scale(.38, .62);  opacity: 1; }
+  100% { transform: rotate(20deg) scale(.04, .3);   opacity: 0; }
+}
+@keyframes ei-knot {
+  0%   { transform: scale(1, 1); }
+  55%  { transform: scale(.92, .9); }
+  100% { transform: scale(.8, .78); }
+}
+
+/* 1.70 - 2.65  knot + ribbon slide straight down and out */
+#s1.open .ribbon,
+#s1.open .bow-touch-target {
+  animation: ei-slide calc(.95 * var(--t)) cubic-bezier(.55,0,.85,.4) calc(1.7 * var(--t)) forwards;
+}
+@keyframes ei-slide {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(0, 120vh, 0); transform: translate3d(0, 120dvh, 0); }
+}
+
+/* 2.40 - 4.90  flap lifts open in 3D */
+#s1.open .env-hinge {
+  animation: ei-flap calc(2.5 * var(--t)) cubic-bezier(.45,0,.2,1) calc(2.4 * var(--t)) forwards;
+}
+@keyframes ei-flap {
+  from { transform: rotateX(0deg); }
+  to   { transform: rotateX(180deg); }
+}
+#s1.open .flap-front::after {
+  animation: ei-sheen calc(1.4 * var(--t)) ease-in calc(2.4 * var(--t)) forwards;
+}
+@keyframes ei-sheen { from { opacity: 0; } to { opacity: 1; } }
+#s1.open .env-flap-shadow {
+  animation: ei-fade-out calc(.7 * var(--t)) ease calc(2.4 * var(--t)) forwards;
+}
+
+/* 4.30 - 6.70  pocket slides down, revealing the card */
+#s1.open .env-pocket {
+  animation: ei-pocket calc(2.4 * var(--t)) cubic-bezier(.5,0,.2,1) calc(4.3 * var(--t)) forwards;
+}
+@keyframes ei-pocket {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(0, 105%, 0); }
+}
+
+/* 4.90 - 6.50  liner dissolves into the ivory card */
+#s1.open .env-liner {
+  animation: ei-fade-out calc(1.6 * var(--t)) ease-in-out calc(4.9 * var(--t)) forwards;
+}
+@keyframes ei-fade-out { from { opacity: 1; } to { opacity: 0; } }
+
+/* 6.60 -  card content fades in, staggered */
+#s1 .invite > * { --ei: 0; }
+#s1 .invite > :nth-child(1) { --ei: 0; }
+#s1 .invite > :nth-child(2) { --ei: 1; }
+#s1 .invite > :nth-child(3) { --ei: 2; }
+#s1 .invite > :nth-child(4) { --ei: 3; }
+#s1 .invite > :nth-child(5) { --ei: 4; }
+#s1:not(.open) .invite > * { opacity: 0; transform: translateY(14px); }
+#s1.open .invite > * {
+  opacity: 1; transform: none;
+  transition: opacity calc(1 * var(--t)) cubic-bezier(.22,1,.36,1) calc(6.6 * var(--t) + var(--ei) * .16s),
+              transform calc(1.1 * var(--t)) cubic-bezier(.22,1,.36,1) calc(6.6 * var(--t) + var(--ei) * .16s);
+}
+/* (the existing letter-by-letter .sp-l names keep their own transition) */
+
+/* Restored session: skip everything, show the card instantly */
+#s1.skip .cover { display: none; }
+#s1.skip .invite > * { transition: none !important; opacity: 1; transform: none; }
+
+/* ---------- Reduced motion: simple crossfade ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .cover *, .cover *::before, .cover *::after { animation: none !important; transition: none !important; }
+  #s1.open .cover { animation: ei-fade-out .4s ease forwards !important; }
+  #s1.open .invite > * { transition: opacity .4s ease .2s !important; transform: none !important; }
+}
