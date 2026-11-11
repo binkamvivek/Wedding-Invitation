@@ -473,19 +473,23 @@ button {
   clip-path: polygon(0 48%, 100% 48%, 100% 100%, 0 100%);
 }
 
+/* Bow anatomical parts */
 .bow-loop-left {
-  transform-origin: 48% 48%;
-  transition: transform 0.9s cubic-bezier(0.25, 1, 0.35, 1) 0.3s;
+  transform-origin: 50% 50%;
+  transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+              opacity 0.55s ease 0.55s;
 }
 
 .bow-loop-right {
-  transform-origin: 52% 48%;
-  transition: transform 0.9s cubic-bezier(0.25, 1, 0.35, 1) 0.3s;
+  transform-origin: 50% 50%;
+  transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+              opacity 0.55s ease 0.55s;
 }
 
 .bow-tails {
   transform-origin: center top;
-  transition: transform 1.0s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+  transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+              opacity 0.55s ease 0.55s;
 }
 
 .bow-knot {
@@ -496,7 +500,9 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.9s cubic-bezier(0.25, 1, 0.35, 1) 0.3s;
+  /* Syncs slide down with ribbon streamer at 1.2s */
+  transition: transform 1.0s cubic-bezier(0.4, 0, 0.2, 1) 1.2s;
+  will-change: transform;
 }
 
 /* Subtle Golden Seal Medallion in center of knot */
@@ -561,27 +567,31 @@ button {
   pointer-events: none;
 }
 
-/* Step 2: 0.3s - 1.2s Bow unties: loops shrink & swing out, knot drops, tails slide down */
+/* Step 2: 0.3s - 1.2s Bow unties: loops smoothly pull inward into the knot and dissolve into ribbon */
 .open .bow-loop-left {
-  transform: translate(-38px, 12px) scale(0.65) rotate(-35deg);
+  transform: scaleX(0.02) scaleY(0.45) translateX(24px);
   opacity: 0;
-  transition: transform 0.9s cubic-bezier(0.25, 1, 0.35, 1) 0.3s,
-              opacity 0.4s ease 0.9s;
+  transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+              opacity 0.5s ease 0.6s;
 }
 
 .open .bow-loop-right {
-  transform: translate(38px, 12px) scale(0.65) rotate(35deg);
+  transform: scaleX(0.02) scaleY(0.45) translateX(-24px);
   opacity: 0;
-  transition: transform 0.9s cubic-bezier(0.25, 1, 0.35, 1) 0.3s,
-              opacity 0.4s ease 0.9s;
+  transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+              opacity 0.5s ease 0.6s;
 }
 
 .open .bow-tails {
-  transform: translateY(110vh) rotate(5deg);
+  transform: scaleX(0.2) scaleY(0.9) translateY(16px);
+  opacity: 0;
+  transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+              opacity 0.5s ease 0.6s;
 }
 
 .open .bow-knot {
   transform: translate(-50%, calc(-50% + 110vh));
+  transition: transform 1.0s cubic-bezier(0.4, 0, 0.2, 1) 1.2s;
 }
 
 /* Step 3: 1.2s - 2.2s Ribbon slides straight down translateY(0 -> 110vh) without fading */
