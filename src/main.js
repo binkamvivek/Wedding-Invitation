@@ -5,6 +5,7 @@
  * countdown clock, calendar downloads, guest blessings, and ambient particle layers.
  */
 
+import './bg-music.js';
 import './styles/main.css';
 import { weddingConfig } from './config/wedding.js';
 import { ScrollFlowController } from './modules/scrollFlow.js';
