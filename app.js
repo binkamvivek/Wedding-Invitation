@@ -172,9 +172,11 @@ const observer = new IntersectionObserver((entries) => {
 slides.forEach(s => observer.observe(s));
 
 /* ---------- Date Counter Animation (Slide 3) ---------- */
+let dateDone = false;   // play the 28 count-up only ONCE per page load
 function dateReveal() {
   const n = $('#dayNum');
-  if (!n) return;
+  if (!n || dateDone) return;
+  dateDone = true;
   cancelAnimationFrame(dayAnim);
   if (reduce) { n.textContent = 28; return; }
   const t0 = performance.now() + 400;
