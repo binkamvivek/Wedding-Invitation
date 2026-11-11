@@ -71,7 +71,7 @@ export class CalendarManager {
   buildIcsContent() {
     const { couple, event, venue } = weddingConfig;
     const nowUtc = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-    const uid = `wedding-${couple.groom.name.toLowerCase()}-${couple.bride.name.toLowerCase()}-20261228@dheerajangle.wedding`;
+    const uid = `wedding-${couple.groom.name.toLowerCase()}-${couple.bride.name.toLowerCase()}-20261228@dheerajangel.wedding`;
 
     const summary = this.escapeText(event.title);
     const location = this.escapeText(`${venue.name}, ${venue.city}`);
@@ -82,7 +82,7 @@ export class CalendarManager {
     const rawLines = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
-      'PRODID:-//Dheeraj & Angle//Wedding Invitation//EN',
+      'PRODID:-//Dheeraj & Angel//Wedding Invitation//EN',
       'CALSCALE:GREGORIAN',
       'METHOD:PUBLISH',
       'BEGIN:VTIMEZONE',
@@ -132,7 +132,7 @@ export class CalendarManager {
 
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'Dheeraj-and-Angle-Wedding.ics';
+    link.download = 'Dheeraj-and-Angel-Wedding.ics';
     link.style.display = 'none';
 
     document.body.appendChild(link);
@@ -151,7 +151,7 @@ export class CalendarManager {
     const dates = '20261228T110000/20261228T130000';
     const ctz = 'Asia/Kolkata';
     const details = encodeURIComponent(
-      `Celebrating the marriage of Dheeraj & Angle at ${venue.name}, ${venue.city}.`
+      `Celebrating the marriage of Dheeraj & Angel at ${venue.name}, ${venue.city}.`
     );
     const location = encodeURIComponent(`${venue.name}, ${venue.city}`);
 

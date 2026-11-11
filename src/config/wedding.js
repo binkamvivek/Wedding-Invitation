@@ -1,5 +1,5 @@
 /**
- * Dheeraj & Angle — Wedding Configuration
+ * Dheeraj & Angel — Wedding Configuration
  * 
  * Edit this single configuration file to customize all details of the wedding.
  * Modifying this file never requires touching component or presentation code.
@@ -17,20 +17,20 @@ export const weddingConfig = {
       initial: 'D',
     },
     bride: {
-      name: 'Angle',
-      fullName: 'Angle',
+      name: 'Angel',
+      fullName: 'Angel',
       role: 'The Bride',
       tagline: 'A spirit of grace, laughter, and radiant wonder.',
       photo: '/assets/couple/angle.jpg',
       initial: 'A',
     },
-    combined: 'Dheeraj & Angle',
+    combined: 'Dheeraj & Angel',
     monogram: 'D & A',
   },
 
   // Event Schedule & Timing
   event: {
-    title: 'Wedding Ceremony of Dheeraj & Angle',
+    title: 'Wedding Ceremony of Dheeraj & Angel',
     subTitle: 'Wedding Ceremony & Nuptials',
     isoDate: '2026-12-28T11:00:00+05:30', // IST target timestamp
     displayDate: 'Monday · 28 December 2026',
@@ -64,7 +64,7 @@ export const weddingConfig = {
     celebrationHeadline: 'The Celebration',
     countdownHeadline: 'Counting Down to Forever',
     countdownMessage: 'We can’t wait to celebrate our special day with you!',
-    closingSignoff: 'With love, Dheeraj & Angle',
+    closingSignoff: 'With love, Dheeraj & Angel',
     begunMessage: 'Today is the day. Join us in celebration.',
     endedMessage: 'Thank you for celebrating with us.',
   },
@@ -75,7 +75,7 @@ export const weddingConfig = {
   storage: {
     mode: 'local', // 'local' | 'remote'
     remoteUrl: '',  // Paste your published Google Apps Script Web App URL here
-    localStorageKey: 'dheeraj-angle:wishes:v1',
+    localStorageKey: 'dheeraj-angel:wishes:v1',
     maxLocalEntries: 50,
   },
 
@@ -101,7 +101,7 @@ export const weddingConfig = {
       id: 'sample-3',
       name: 'Grace & David',
       rsvp: 'Joyfully accepting',
-      message: 'So utterly delighted for you, Dheeraj and Angle! Can’t wait to raise a toast in Secunderabad.',
+      message: 'So utterly delighted for you, Dheeraj and Angel! Can’t wait to raise a toast in Secunderabad.',
       timestamp: '2026-11-08T09:20:00.000Z',
       isSample: true,
     },
