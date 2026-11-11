@@ -230,10 +230,18 @@ function petals() {
     c: cols[(Math.random() * 4) | 0],
     a: .5 + Math.random() * .4
   });
+  let lastW = 0, lastH = 0;
   size();
+  lastW = innerWidth; lastH = innerHeight;
   const N = innerWidth < 640 ? 14 : 26;
   for (let i = 0; i < N; i++) ps.push(mk(false));
-  addEventListener('resize', size);
+  // Mobile browsers fire many 'resize' events while the address bar hides/shows.
+  // Re-allocating the canvas each time makes scrolling stutter, so only react to
+  // real changes (width change = rotate/resize, or a big height change).
+  const onResize = () => {
+    if (innerWidth !== lastW || Math.abs(innerHeight - lastH) > 160) size();
+  };
+  addEventListener('resize', onResize);
   document.addEventListener('visibilitychange', () => { run = !document.hidden; run && requestAnimationFrame(loop); });
   function loop(t) {
     if (!run) return;
