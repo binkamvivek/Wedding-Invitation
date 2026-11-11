@@ -107,7 +107,14 @@ function openInvite() {
   document.body.classList.remove('locked');
 
   const cover = $('#cover');
-  if (cover) cover.setAttribute('aria-hidden', 'true');
+  if (cover) {
+    cover.setAttribute('aria-hidden', 'true');
+    // At 3.8s: remove the envelope layer completely from DOM so invitation is visible and scrollable
+    setTimeout(() => {
+      cover.style.display = 'none';
+      cover.style.pointerEvents = 'none';
+    }, 3800);
+  }
 
   // Subtle haptic feedback if available
   if (navigator && navigator.vibrate) {
@@ -122,7 +129,11 @@ if (sessionStorage.getItem('da-opened') === 'true') {
   document.body.classList.add('opened');
   document.body.classList.remove('locked');
   const cover = $('#cover');
-  if (cover) cover.setAttribute('aria-hidden', 'true');
+  if (cover) {
+    cover.setAttribute('aria-hidden', 'true');
+    cover.style.display = 'none';
+    cover.style.pointerEvents = 'none';
+  }
 }
 
 // Tap on tied ribbon bow, button, or ribbon to untie and open

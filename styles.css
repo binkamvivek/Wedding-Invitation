@@ -234,11 +234,6 @@ button {
   position: absolute;
   width: min(52vw, 230px);
   height: auto;
-  opacity: 0;
-  transition: opacity 1.4s ease 1.2s;
-}
-
-.open .crn {
   opacity: 1;
 }
 
@@ -247,6 +242,7 @@ button {
 .crn.bl { bottom: 4%; left: 5.5%; }
 .crn.br { bottom: 4%; right: 5.5%; transform: scaleX(-1); }
 
+/* Invitation card underneath (static and fully rendered from the start) */
 .invite {
   position: absolute;
   inset: 0;
@@ -260,21 +256,9 @@ button {
 }
 
 .invite > * {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 1s ease, transform 1s var(--ease);
-}
-
-.open .invite > * {
   opacity: 1;
   transform: none;
 }
-
-.open .invite > :nth-child(1) { transition-delay: .9s; }
-.open .invite > :nth-child(2) { transition-delay: 1.1s; }
-.open .invite > :nth-child(3) { transition-delay: 1.4s; }
-.open .invite > :nth-child(4) { transition-delay: 1.6s; }
-.open .invite > :nth-child(5) { transition-delay: 2.0s; }
 
 .names {
   display: flex;
@@ -300,45 +284,73 @@ button {
   overflow: hidden;
 }
 
-/* Flaps diagonal split from center (50% 50%) */
+/* 4 Triangular Envelope Flaps (meet at center 50% 50%) */
 .flap {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  will-change: transform, opacity;
-  transition: transform 1.8s cubic-bezier(0.25, 1, 0.35, 1) 0.9s,
-              opacity 0.6s ease 2.3s;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
-/* Top flap: diagonal from (0,0) -> (100%,0) -> (100%,50%) -> (50%,50%) -> (0,50%) or full diagonal triangle */
+/* Envelope Flaps (Classical European triangular flaps meeting at center)
+   The top flap overlaps with a triangular point (0,0) -> (100%,0) -> (50%, 58%)
+   The bottom flap overlaps with a triangular point (0,100%) -> (50%, 42%) -> (100%,100%)
+*/
 .flap-top {
-  clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 50%, 0 50%);
+  clip-path: polygon(0 0, 100% 0, 50% 58%);
   transform-origin: top center;
+  transition: transform 1.5s cubic-bezier(0.25, 1, 0.35, 1) 2.2s;
+  z-index: 5;
+  filter: drop-shadow(0 6px 14px rgba(38, 60, 46, 0.35));
 }
 
-/* Bottom flap: diagonal from (0,50%) -> (50%,50%) -> (100%,50%) -> (100%,100%) -> (0,100%) */
 .flap-bot {
-  clip-path: polygon(0 50%, 50% 50%, 100% 50%, 100% 100%, 0 100%);
+  clip-path: polygon(0 100%, 50% 46%, 100% 100%);
   transform-origin: bottom center;
+  transition: transform 1.5s cubic-bezier(0.25, 1, 0.35, 1) 2.2s;
+  z-index: 4;
 }
 
-/* Soft shadow and subtle depth along the diagonal fold seams */
+.flap-left {
+  clip-path: polygon(0 0, 50% 50%, 0 100%);
+  transform-origin: left center;
+  transition: transform 1.4s cubic-bezier(0.25, 1, 0.35, 1) 2.4s;
+  z-index: 3;
+}
+
+.flap-right {
+  clip-path: polygon(100% 0, 100% 100%, 50% 50%);
+  transform-origin: right center;
+  transition: transform 1.4s cubic-bezier(0.25, 1, 0.35, 1) 2.4s;
+  z-index: 3;
+}
+
+/* Soft shadows on flaps while they open */
 .flap-shadow {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.22;
-  transition: opacity 1.2s ease 0.9s;
+  opacity: 0.28;
+  transition: opacity 1.2s ease 2.2s;
 }
 
 .flap-top .flap-shadow {
-  background: linear-gradient(to top, rgba(38, 60, 46, 0.45) 0%, rgba(38, 60, 46, 0.1) 15%, transparent 40%);
+  background: linear-gradient(to top, rgba(38, 60, 46, 0.45) 0%, transparent 45%);
 }
 
 .flap-bot .flap-shadow {
-  background: linear-gradient(to bottom, rgba(38, 60, 46, 0.45) 0%, rgba(38, 60, 46, 0.1) 15%, transparent 40%);
+  background: linear-gradient(to bottom, rgba(38, 60, 46, 0.45) 0%, transparent 45%);
+}
+
+.flap-left .flap-shadow {
+  background: linear-gradient(to left, rgba(38, 60, 46, 0.35) 0%, transparent 45%);
+}
+
+.flap-right .flap-shadow {
+  background: linear-gradient(to right, rgba(38, 60, 46, 0.35) 0%, transparent 45%);
 }
 
 .fill {
@@ -374,9 +386,9 @@ button {
       rgba(247, 243, 235, 0.96) 82%, 
       rgba(215, 198, 172, 0.9) 100%
     );
-  transition: transform 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.5s,
-              opacity 0.7s ease 1.6s;
-  will-change: transform, opacity;
+  /* Step 2: 1.2s-2.2s Ribbon slides straight down translateY(0 -> 110vh), no fade */
+  transition: transform 1.0s cubic-bezier(0.4, 0, 0.2, 1) 1.2s;
+  will-change: transform;
 }
 
 /* Soft fine gold thread sewn along both selvage edges */
@@ -405,38 +417,8 @@ button {
 }
 
 /* ================================================================
-   ANIMATION TRIGGERED ON OPEN (.open class)
+   BOW PARTS (Separated into loops, tails, knot)
    ================================================================ */
-
-/* 1. Ribbon slides downward and away until off-screen */
-.open .ribbon-streamer {
-  transform: translate(-50%, 120vh);
-  opacity: 0;
-}
-
-/* 2. Top flaps fold upward, bottom flaps fold downward */
-.open .flap-top {
-  transform: translateY(-105%) rotateX(12deg);
-  opacity: 0;
-}
-
-.open .flap-bot {
-  transform: translateY(105%) rotateX(-12deg);
-  opacity: 0;
-}
-
-.open .flap-shadow {
-  opacity: 0;
-}
-
-/* 3. Cover layer finishes and is completely unmounted from pointer events */
-.open .cover {
-  pointer-events: none;
-  visibility: hidden;
-  transition: visibility 0s 2.9s;
-}
-
-/* TIED SILK CHIFFON RIBBON BOW */
 .bow-touch-target {
   position: absolute;
   left: 50%;
@@ -449,11 +431,6 @@ button {
   z-index: 20;
   user-select: none;
   -webkit-user-select: none;
-  transition: transform .4s var(--ease), opacity .4s ease, visibility 0s .4s;
-}
-
-.bow-touch-target:hover {
-  transform: translate(-50%, -50%) scale(1.04);
 }
 
 .bow-container {
@@ -464,28 +441,66 @@ button {
   align-items: center;
   justify-content: center;
   filter: drop-shadow(0 12px 24px rgba(40, 30, 20, 0.35));
-  animation: bow-breathe 3.2s ease-in-out infinite;
 }
 
-@keyframes bow-breathe {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.035); }
+.bow-part {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  will-change: transform;
 }
 
-.bow-fabric-img {
+.bow-sub-img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  pointer-events: none;
-  transition: transform .7s var(--ease-luxury), opacity .6s ease, filter .6s ease;
 }
 
-/* Subtle Golden Seal Medallion in center of knot */
-.seal-medallion {
+/* Loop Left (top-left loop region) */
+.left-crop {
+  clip-path: polygon(0 0, 50% 0, 50% 55%, 0 55%);
+}
+
+/* Loop Right (top-right loop region) */
+.right-crop {
+  clip-path: polygon(50% 0, 100% 0, 100% 55%, 50% 55%);
+}
+
+/* Hanging Tails (lower half) */
+.tails-crop {
+  clip-path: polygon(0 48%, 100% 48%, 100% 100%, 0 100%);
+}
+
+.bow-loop-left {
+  transform-origin: 48% 48%;
+  transition: transform 0.9s cubic-bezier(0.25, 1, 0.35, 1) 0.3s;
+}
+
+.bow-loop-right {
+  transform-origin: 52% 48%;
+  transition: transform 0.9s cubic-bezier(0.25, 1, 0.35, 1) 0.3s;
+}
+
+.bow-tails {
+  transform-origin: center top;
+  transition: transform 1.0s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+}
+
+.bow-knot {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.9s cubic-bezier(0.25, 1, 0.35, 1) 0.3s;
+}
+
+/* Subtle Golden Seal Medallion in center of knot */
+.seal-medallion {
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -494,7 +509,6 @@ button {
   display: grid;
   place-items: center;
   pointer-events: none;
-  transition: transform .5s var(--ease-luxury), opacity .4s;
 }
 
 .seal-medallion span {
@@ -531,36 +545,76 @@ button {
   50% { transform: translateY(-4px); opacity: 1; }
 }
 
-/* UNTYING ANIMATION WHEN TAPPED */
+/* ================================================================
+   EXACT STEP-BY-STEP ANIMATION ON CLICK (.open class)
+   ================================================================ */
+
+/* Step 1: 0.0s - 0.3s Button fades out immediately and stays gone */
 .open .tap {
-  opacity: 0;
+  opacity: 0 !important;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease 0s, visibility 0s 0.3s;
 }
 
 .open .bow-touch-target {
   pointer-events: none;
-  transition: opacity 0.4s ease 1.2s, visibility 0s 1.6s;
+}
+
+/* Step 2: 0.3s - 1.2s Bow unties: loops shrink & swing out, knot drops, tails slide down */
+.open .bow-loop-left {
+  transform: translate(-38px, 12px) scale(0.65) rotate(-35deg);
   opacity: 0;
+  transition: transform 0.9s cubic-bezier(0.25, 1, 0.35, 1) 0.3s,
+              opacity 0.4s ease 0.9s;
+}
+
+.open .bow-loop-right {
+  transform: translate(38px, 12px) scale(0.65) rotate(35deg);
+  opacity: 0;
+  transition: transform 0.9s cubic-bezier(0.25, 1, 0.35, 1) 0.3s,
+              opacity 0.4s ease 0.9s;
+}
+
+.open .bow-tails {
+  transform: translateY(110vh) rotate(5deg);
+}
+
+.open .bow-knot {
+  transform: translate(-50%, calc(-50% + 110vh));
+}
+
+/* Step 3: 1.2s - 2.2s Ribbon slides straight down translateY(0 -> 110vh) without fading */
+.open .ribbon-streamer {
+  transform: translate(-50%, 110vh);
+}
+
+/* Step 4: 2.2s - 3.8s Flaps open: top rotates up (rotateX), bot rotates down, left/right slide out */
+.open .flap-top {
+  transform: rotateX(110deg);
+}
+
+.open .flap-bot {
+  transform: rotateX(-110deg);
+}
+
+.open .flap-left {
+  transform: translateX(-102%) rotateY(-25deg);
+}
+
+.open .flap-right {
+  transform: translateX(102%) rotateY(25deg);
+}
+
+.open .flap-shadow {
+  opacity: 0;
+}
+
+/* Step 5: 3.8s Envelope layer is removed so invitation is interactive & scrollable */
+.open .cover {
+  pointer-events: none;
   visibility: hidden;
-}
-
-.open .bow-fabric-img {
-  /* Knot unties & loops loosen with soft rotation and slight drop */
-  transform: scale(1.15) rotate(-6deg) translateY(24px);
-  opacity: 0;
-  filter: blur(3px);
-  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.15s,
-              opacity 0.9s ease 0.45s,
-              filter 0.9s ease 0.45s;
-}
-
-.open .seal-medallion {
-  /* Seal shifts and drops subtly with untying knot before fading */
-  transform: translate(-50%, calc(-50% + 20px)) scale(0.85);
-  opacity: 0;
-  transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s,
-              opacity 0.8s ease 0.45s;
+  transition: visibility 0s 3.8s;
 }
 
 /* Sparkles on slide 1 */

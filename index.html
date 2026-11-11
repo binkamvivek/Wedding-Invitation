@@ -79,15 +79,22 @@
     </button>
   </div>
 
-  <!-- ENVELOPE COVER WITH TIED SILK CHIFFON RIBBON BOW -->
+  <!-- ENVELOPE COVER WITH 4 TRIANGULAR FLAPS & TIED RIBBON -->
   <div class="cover" id="cover">
-    <!-- Top Flap (folds upward) -->
-    <div class="flap flap-top">
+    <!-- 4 Triangular Envelope Flaps meeting at center (50% 50%) -->
+    <div class="flap flap-top" aria-hidden="true">
       <svg class="fill"><use href="#coast" width="100%" height="100%"/></svg>
       <div class="flap-shadow"></div>
     </div>
-    <!-- Bottom Flap (folds downward) -->
-    <div class="flap flap-bot">
+    <div class="flap flap-bot" aria-hidden="true">
+      <svg class="fill"><use href="#coast" width="100%" height="100%"/></svg>
+      <div class="flap-shadow"></div>
+    </div>
+    <div class="flap flap-left" aria-hidden="true">
+      <svg class="fill"><use href="#coast" width="100%" height="100%"/></svg>
+      <div class="flap-shadow"></div>
+    </div>
+    <div class="flap flap-right" aria-hidden="true">
       <svg class="fill"><use href="#coast" width="100%" height="100%"/></svg>
       <div class="flap-shadow"></div>
     </div>
@@ -97,12 +104,26 @@
       <div class="ribbon-texture"></div>
     </div>
 
-    <!-- The Tied Ribbon Bow (Tapping unties it) -->
+    <!-- The Tied Ribbon Bow separated into anatomical parts -->
     <div class="bow-touch-target" id="seal" role="button" tabindex="0" aria-label="Tap to untie ribbon and open invitation">
       <div class="bow-container">
-        <img src="/assets/ribbon-bow.webp" alt="Tied Silk Chiffon Ribbon Bow" class="bow-fabric-img">
-        <div class="seal-medallion">
-          <span>D<small>&amp;</small>A</span>
+        <!-- Hanging Tails -->
+        <div class="bow-part bow-tails">
+          <img src="/assets/ribbon-bow.webp" alt="" class="bow-sub-img tails-crop">
+        </div>
+        <!-- Left Loop -->
+        <div class="bow-part bow-loop-left">
+          <img src="/assets/ribbon-bow.webp" alt="" class="bow-sub-img left-crop">
+        </div>
+        <!-- Right Loop -->
+        <div class="bow-part bow-loop-right">
+          <img src="/assets/ribbon-bow.webp" alt="" class="bow-sub-img right-crop">
+        </div>
+        <!-- Center Knot & D&A Gold Seal -->
+        <div class="bow-part bow-knot">
+          <div class="seal-medallion">
+            <span>D<small>&amp;</small>A</span>
+          </div>
         </div>
       </div>
       <p class="tap">Tap to Untie &amp; Open</p>
