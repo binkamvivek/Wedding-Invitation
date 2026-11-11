@@ -1,9 +1,8 @@
 /**
  * Petals & Sparkles Module — Ambient Canvas Layer
  * 
- * Manages botanical drift (blush petals, ivory blossoms, olive leaf slivers)
- * and gentle golden sparkles on a single optimized HTML5 Canvas.
- * Throttles frame rate to 35-40fps, pauses when hidden, and respects reduced motion.
+ * Renders 18 botanical particles on mobile (36 on desktop) with organic sine-wave sway,
+ * tumbling 3D rotation, and gentle golden flecks on a single optimized HTML5 Canvas.
  */
 
 export class AmbientPetals {
@@ -17,7 +16,6 @@ export class AmbientPetals {
     this.lastFrameTime = 0;
     this.frameInterval = 1000 / 38; // ~38 fps target
 
-    // Detect reduced motion preference
     this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     this.init();
@@ -29,7 +27,6 @@ export class AmbientPetals {
     this.resize();
     window.addEventListener('resize', () => this.resize(), { passive: true });
 
-    // Handle visibility
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') {
         this.start();
@@ -58,7 +55,7 @@ export class AmbientPetals {
 
   spawnParticles() {
     const isMobile = window.innerWidth < 768;
-    const count = isMobile ? 18 : 38;
+    const count = isMobile ? 18 : 36;
     this.particles = [];
 
     const types = ['blush', 'ivory', 'leaf', 'sparkle'];
@@ -69,12 +66,14 @@ export class AmbientPetals {
         x: Math.random() * this.width,
         y: Math.random() * this.height,
         type,
-        size: type === 'sparkle' ? 1.5 + Math.random() * 2 : 7 + Math.random() * 8,
-        speedY: type === 'sparkle' ? 0.3 + Math.random() * 0.4 : 0.6 + Math.random() * 1.1,
-        speedX: -0.4 + Math.random() * 0.8,
+        size: type === 'sparkle' ? 1.5 + Math.random() * 2 : 7 + Math.random() * 9,
+        baseSpeedY: type === 'sparkle' ? 0.35 + Math.random() * 0.4 : 0.65 + Math.random() * 1.1,
+        swayPhase: Math.random() * Math.PI * 2,
+        swaySpeed: 0.02 + Math.random() * 0.03,
+        swayAmplitude: 0.8 + Math.random() * 1.4,
         rotation: Math.random() * Math.PI * 2,
-        rotSpeed: (-0.02 + Math.random() * 0.04),
-        alpha: 0.3 + Math.random() * 0.55,
+        rotSpeed: -0.02 + Math.random() * 0.04,
+        alpha: 0.35 + Math.random() * 0.5,
         sparkleCycle: Math.random() * Math.PI * 2,
       });
     }
@@ -109,25 +108,26 @@ export class AmbientPetals {
     for (let i = 0; i < this.particles.length; i++) {
       const p = this.particles[i];
 
-      p.y += p.speedY;
-      p.x += p.speedX;
+      p.swayPhase += p.swaySpeed;
+      p.y += p.baseSpeedY;
+      p.x += Math.sin(p.swayPhase) * p.swayAmplitude;
       p.rotation += p.rotSpeed;
 
-      // Wrap around edges
-      if (p.y > this.height + 20) {
-        p.y = -20;
+      // Wrap around screen boundaries
+      if (p.y > this.height + 25) {
+        p.y = -25;
         p.x = Math.random() * this.width;
       }
-      if (p.x > this.width + 20) p.x = -20;
-      if (p.x < -20) p.x = this.width + 20;
+      if (p.x > this.width + 25) p.x = -25;
+      if (p.x < -25) p.x = this.width + 25;
 
       this.ctx.save();
       this.ctx.translate(p.x, p.y);
       this.ctx.rotate(p.rotation);
 
       if (p.type === 'sparkle') {
-        p.sparkleCycle += 0.05;
-        const sparkleAlpha = p.alpha * (0.4 + 0.6 * Math.sin(p.sparkleCycle));
+        p.sparkleCycle += 0.06;
+        const sparkleAlpha = p.alpha * (0.35 + 0.65 * Math.sin(p.sparkleCycle));
         this.ctx.globalAlpha = Math.max(0, sparkleAlpha);
         this.ctx.fillStyle = '#C5A66A';
         this.ctx.beginPath();
@@ -143,7 +143,6 @@ export class AmbientPetals {
           this.ctx.fillStyle = '#68734D'; // olive leaf
         }
 
-        // Draw elegant oval petal
         this.ctx.beginPath();
         this.ctx.ellipse(0, 0, p.size * 0.55, p.size, 0, 0, Math.PI * 2);
         this.ctx.fill();
@@ -153,4 +152,3 @@ export class AmbientPetals {
     }
   }
 }
-
