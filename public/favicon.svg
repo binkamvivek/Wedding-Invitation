@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="favSeal" cx="35%" cy="30%" r="85%">
+      <stop offset="0%" stop-color="#F2DFB3" />
+      <stop offset="55%" stop-color="#C5A66A" />
+      <stop offset="100%" stop-color="#8F6E2E" />
+    </radialGradient>
+    <filter id="favShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#3c2814" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+  <circle cx="32" cy="32" r="30" fill="url(#favSeal)" filter="url(#favShadow)"/>
+  <circle cx="32" cy="32" r="26.5" fill="none" stroke="#F8F4E9" stroke-width="0.75" stroke-dasharray="2 1" opacity="0.6"/>
+  <circle cx="32" cy="32" r="25" fill="none" stroke="#684e1b" stroke-width="0.5" opacity="0.5"/>
+  <!-- D & A Monogram -->
+  <text x="32" y="38" font-family="'Cormorant Garamond', 'Playfair Display', serif" font-size="20" font-weight="600" font-style="italic" fill="#F8F4E9" text-anchor="middle" letter-spacing="1">D&amp;A</text>
+</svg>
+

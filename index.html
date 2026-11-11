@@ -1,202 +1,624 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Dheeraj &amp; Angle — Wedding Invitation</title>
-<meta name="description" content="Dheeraj &amp; Angle are getting married on 28 December 2026 at All Saints Church, Secunderabad.">
-<meta name="theme-color" content="#F8F4E9">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23C5A66A'/%3E%3Ctext x='16' y='21' font-size='13' text-anchor='middle' fill='%23F8F4E9' font-family='serif' font-style='italic'%3ED%26A%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>tailwind.config={theme:{extend:{colors:{ivory:'#F8F4E9',olive:'#68734D',forest:'#263C2E',gold:'#C5A66A',blush:'#D9A9A0',beige:'#E9DDC9'},fontFamily:{display:['Playfair Display','serif'],serif:['Cormorant Garamond','serif'],sans:['Montserrat','sans-serif']}}}}</script>
-<link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Dheeraj &amp; Angle | Wedding Invitation</title>
+  <meta name="description" content="Dheeraj &amp; Angle are getting married on Monday, 28 December 2026 at All Saints Church, Secunderabad.">
+  <meta name="theme-color" content="#F8F4E9">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Dheeraj &amp; Angle — Wedding Invitation">
+  <meta property="og:description" content="Join us in celebrating our wedding ceremony on Monday, 28 December 2026 at All Saints Church, Secunderabad.">
+  <meta property="og:image" content="/og-image.jpg">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dheeraj &amp; Angle — Wedding Invitation">
+  <meta name="twitter:description" content="Join us in celebrating our wedding ceremony on Monday, 28 December 2026 at All Saints Church, Secunderabad.">
+  <meta name="twitter:image" content="/og-image.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- Preconnect and Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Preload hero assets -->
+  <link rel="preload" as="image" href="/assets/envelope-cover.webp" type="image/webp">
 </head>
-<body class="bg-ivory text-forest font-serif" data-theme="light">
+<body class="bg-ivory text-forest overflow-hidden selection:bg-gold/30 selection:text-forest">
 
-<!-- ============ SHARED ART (symbols, filters) ============ -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <defs>
-    <filter id="wc" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".022" numOctaves="3" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7"/></filter>
-    <filter id="rough" x="-4%" y="-4%" width="108%" height="108%"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5"/></filter>
-    <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6F1E3"/><stop offset="1" stop-color="#D5E1E2"/></linearGradient>
-    <linearGradient id="gSea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7FA6BE"/><stop offset="1" stop-color="#3C6E95"/></linearGradient>
-    <linearGradient id="gHill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B49A69"/><stop offset="1" stop-color="#7E8656"/></linearGradient>
-    <radialGradient id="gSeal" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#E4CC93"/><stop offset=".6" stop-color="#C5A66A"/><stop offset="1" stop-color="#9C7E43"/></radialGradient>
-    <linearGradient id="gPh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EFE5D2"/><stop offset="1" stop-color="#DCCDB1"/></linearGradient>
-  </defs>
+  <!-- Accessibility live region -->
+  <div id="a11y-live-region" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 
-  <!-- blossom + leaf -->
-  <symbol id="bl" viewBox="-12 -12 24 24"><g fill="#FBF7EE" stroke="#D9A9A0" stroke-width=".6"><ellipse cy="-6" rx="4.2" ry="6"/><ellipse cy="-6" rx="4.2" ry="6" transform="rotate(72)"/><ellipse cy="-6" rx="4.2" ry="6" transform="rotate(144)"/><ellipse cy="-6" rx="4.2" ry="6" transform="rotate(216)"/><ellipse cy="-6" rx="4.2" ry="6" transform="rotate(288)"/></g><circle r="2.4" fill="#C5A66A"/><g fill="#9C7E43"><circle cx="1.2" cy="-1" r=".4"/><circle cx="-1" cy="1" r=".4"/><circle cx="0" cy="1.5" r=".4"/></g></symbol>
-  <symbol id="lf" viewBox="-6 -14 12 28"><path d="M0-13C6-6 6 6 0 13C-6 6-6-6 0-13Z" fill="#68734D"/><path d="M0-11V11" stroke="#263C2E" stroke-width=".6" opacity=".45"/></symbol>
-  <symbol id="br" viewBox="0 0 200 130"></symbol>
+  <!-- Ambient Particle Canvas (petals & gold dust) -->
+  <canvas id="ambient-canvas" class="fixed inset-0 pointer-events-none z-30" aria-hidden="true"></canvas>
 
-  <!-- painted Amalfi coast -->
-  <symbol id="coast" viewBox="0 0 390 844" preserveAspectRatio="xMidYMid slice">
-    <g filter="url(#wc)">
-      <rect width="390" height="844" fill="url(#gSky)"/>
-      <path d="M120 400 L215 300 L270 345 L330 280 L400 340 V430Z" fill="#9DAE98"/>
-      <path d="M60 430 L170 350 L250 395 L340 330 L400 380 V470Z" fill="#7C8F70"/>
-      <rect y="400" width="390" height="444" fill="url(#gSea)"/>
-      <path d="M0 430 C60 420 110 470 150 520 C200 590 250 700 300 844 L0 844Z" fill="url(#gHill)"/>
-      <g id="vg"></g>
-    </g>
-    <g id="cf"></g>
-  </symbol>
+  <!-- Wax Seal Burst Particle Canvas -->
+  <canvas id="seal-burst-canvas" class="fixed inset-0 pointer-events-none z-50" aria-hidden="true"></canvas>
 
-  <!-- portrait placeholders -->
-  <symbol id="ph-g" viewBox="0 0 100 130"><rect width="100" height="130" fill="url(#gPh)"/><path d="M8 130C10 98 30 90 50 90s40 8 42 40Z" fill="#263C2E"/><path d="M42 90l8 14 8-14Z" fill="#F8F4E9"/><rect x="43" y="74" width="14" height="18" fill="#D8B49A"/><ellipse cx="50" cy="56" rx="17" ry="21" fill="#E2BFA6"/><path d="M33 52C32 30 68 28 67 52C62 42 40 42 33 52Z" fill="#3A2C25"/></symbol>
-  <symbol id="ph-b" viewBox="0 0 100 130"><rect width="100" height="130" fill="url(#gPh)"/><path d="M30 60C26 100 20 118 14 130H86C80 118 74 100 70 60Z" fill="#3A2C25"/><path d="M12 130C14 100 32 92 50 92s36 8 38 38Z" fill="#D9A9A0"/><rect x="43" y="76" width="14" height="18" fill="#D8B49A"/><ellipse cx="50" cy="56" rx="16" ry="20" fill="#E2BFA6"/><path d="M33 56C30 28 70 28 67 56C64 42 54 36 50 36S36 42 33 56Z" fill="#3A2C25"/></symbol>
+  <!-- Main Viewport / Paged Presentation Stage -->
+  <main id="main-stage" class="relative w-full h-[100dvh] overflow-hidden">
 
-  <!-- icons (Lucide paths) -->
-  <symbol id="i-l" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
-  <symbol id="i-r" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
-  <symbol id="i-cal" viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8M3 10h18M16 19h6M19 16v6"/></symbol>
-  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
-  <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol>
-</svg>
+    <!-- ========================================================
+         SLIDE 01: THE GRAND INVITATION (ENVELOPE RITUAL)
+         ======================================================== -->
+    <section 
+      id="slide-invitation" 
+      class="slide-panel is-active flex items-center justify-center p-3 sm:p-6" 
+      data-title="The Grand Invitation" 
+      data-theme="light" 
+      aria-roledescription="slide" 
+      aria-label="1 of 4: The Grand Invitation"
+    >
+      <!-- CLOSED ENVELOPE VIEW -->
+      <div id="envelope-closed-view" class="relative w-full max-w-[420px] aspect-[9/14] sm:aspect-[3/4.5] max-h-[88dvh] rounded shadow-2xl overflow-hidden envelope-viewport">
+        <!-- Painted Amalfi Coast Envelope Cover -->
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/assets/envelope-cover.webp');" role="img" aria-label="Hand-painted Mediterranean Amalfi coast illustration"></div>
 
-<main id="stage" aria-live="polite">
+        <!-- Envelope 3D Triangular Flaps -->
+        <div class="envelope-flap-top absolute top-0 inset-x-0 h-1/2 z-10 origin-top pointer-events-none">
+          <svg class="w-full h-full drop-shadow-md" viewBox="0 0 420 300" preserveAspectRatio="none">
+            <polygon points="0,0 420,0 210,260" fill="#F8F4E9" opacity="0.95" stroke="#C5A66A" stroke-width="1"/>
+            <polygon points="10,5 410,5 210,245" fill="none" stroke="#C5A66A" stroke-width="0.75" stroke-dasharray="4 2" opacity="0.7"/>
+          </svg>
+        </div>
 
-<!-- ============ SLIDE 01 — THE GRAND INVITATION ============ -->
-<section class="slide on" id="s1" data-theme="light" aria-label="Invitation">
-  <div class="paper"></div>
-  <svg class="crn tl" viewBox="0 0 200 130" aria-hidden="true"><use href="#br"/></svg>
-  <svg class="crn tr" viewBox="0 0 200 130" aria-hidden="true"><use href="#br"/></svg>
-  <svg class="crn bl" viewBox="0 0 200 130" aria-hidden="true"><use href="#br"/></svg>
-  <svg class="crn br" viewBox="0 0 200 130" aria-hidden="true"><use href="#br"/></svg>
-  <div class="invite">
-    <p class="eyebrow">Together with their families</p>
-    <h1 class="names" aria-label="Dheeraj and Angle"><span data-split>Dheeraj</span><em class="amp">&amp;</em><span data-split>Angle</span></h1>
-    <div class="orn"><i></i><svg viewBox="-12 -12 24 24"><use href="#bl" x="-12" y="-12" width="24" height="24"/></svg><i></i></div>
-    <p class="script">are getting married</p>
-  </div>
+        <!-- Bottom/Side Envelope fold lines -->
+        <div class="absolute bottom-0 inset-x-0 h-1/2 pointer-events-none z-10">
+          <svg class="w-full h-full drop-shadow-sm" viewBox="0 0 420 300" preserveAspectRatio="none">
+            <polygon points="0,300 420,300 210,40" fill="#F8F4E9" opacity="0.94" stroke="#C5A66A" stroke-width="0.75"/>
+            <polygon points="0,0 0,300 180,180" fill="#E9DDC9" opacity="0.5"/>
+            <polygon points="420,0 420,300 240,180" fill="#E9DDC9" opacity="0.5"/>
+          </svg>
+        </div>
 
-  <div class="cover" id="cover">
-    <div class="half top"><svg class="fill"><use href="#coast" width="100%" height="100%"/></svg><i class="rib"></i></div>
-    <div class="half bot"><svg class="fill"><use href="#coast" width="100%" height="100%"/></svg><i class="rib"></i></div>
-    <button class="seal" id="seal" aria-label="Tap to open the invitation"><span>D<small>&amp;</small>A</span></button>
-    <p class="tap">Tap to Open</p>
-  </div>
-</section>
+        <!-- Delicate Vellum Band with Couple Names -->
+        <div class="absolute top-[22%] inset-x-4 sm:inset-x-6 py-4 px-3 bg-ivory/90 backdrop-blur-md rounded border border-gold/40 shadow-sm text-center z-15">
+          <p class="font-serif italic text-xs sm:text-sm tracking-wide text-forest/80 mb-1">Together with their families</p>
+          <h1 class="font-serif text-3xl sm:text-4xl text-forest tracking-tight leading-none mb-1">
+            <span>Dheeraj</span>
+            <span class="font-serif italic text-gold font-light px-1">&amp;</span>
+            <span>Angle</span>
+          </h1>
+          <p class="font-serif italic text-xs sm:text-sm tracking-wider text-forest/80">are getting married</p>
+        </div>
 
-<!-- ============ SLIDE 02 — THE COUPLE ============ -->
-<section class="slide" id="s2" data-theme="light" aria-label="The couple">
-  <div class="sky" data-d="6"></div>
-  <div class="inner">
-    <p class="eyebrow rv" style="--d:0">The Couple</p>
-    <h2 class="title rv" style="--d:1">Two Hearts, One<br>Beautiful Story</h2>
-    <div class="orn rv" style="--d:2"><i></i><svg viewBox="-12 -12 24 24"><use href="#bl" x="-12" y="-12" width="24" height="24"/></svg><i></i></div>
-    <div class="pair">
-      <figure class="pf rv" style="--d:3">
-        <div class="arch"><svg class="ph" viewBox="0 0 100 130" preserveAspectRatio="xMidYMid slice"><use href="#ph-g" width="100" height="130"/></svg><img src="assets/dheeraj.jpg" alt="Dheeraj" loading="lazy" onerror="this.remove()"><svg class="fb" viewBox="-12 -12 24 24"><use href="#bl" x="-12" y="-12" width="24" height="24"/></svg></div>
-        <figcaption><span class="mono">D</span><b class="name" data-split>Dheeraj</b><small>The Groom</small></figcaption>
-      </figure>
-      <span class="amp rv" style="--d:5">&amp;</span>
-      <figure class="pf rv" style="--d:4">
-        <div class="arch"><svg class="ph" viewBox="0 0 100 130" preserveAspectRatio="xMidYMid slice"><use href="#ph-b" width="100" height="130"/></svg><img src="assets/angle.jpg" alt="Angle" loading="lazy" onerror="this.remove()"><svg class="fb" viewBox="-12 -12 24 24"><use href="#bl" x="-12" y="-12" width="24" height="24"/></svg></div>
-        <figcaption><span class="mono">A</span><b class="name" data-split>Angle</b><small>The Bride</small></figcaption>
-      </figure>
-    </div>
-    <p class="script rv" style="--d:6">Two souls, one journey, and a lifetime of beautiful memories.</p>
-  </div>
-</section>
-
-<!-- ============ SLIDE 03 — THE CELEBRATION ============ -->
-<section class="slide dark" id="s3" data-theme="dark" aria-label="The celebration">
-  <div class="inner">
-    <svg class="church rv" style="--d:0" viewBox="0 0 300 250" role="img" aria-label="Watercolor illustration of a church">
-      <g filter="url(#wc)">
-        <ellipse cx="150" cy="232" rx="150" ry="22" fill="#68734D"/>
-        <ellipse cx="55" cy="170" rx="22" ry="62" fill="#1d3024"/><ellipse cx="245" cy="176" rx="20" ry="56" fill="#1d3024"/>
-        <rect x="70" y="120" width="160" height="108" fill="#E9DDC9"/><rect x="70" y="120" width="160" height="108" fill="#D9A9A0" opacity=".12"/>
-        <path d="M62 122L150 84L238 122Z" fill="#C98F82"/>
-        <rect x="118" y="74" width="64" height="154" fill="#F1E8D5"/><rect x="170" y="74" width="12" height="154" fill="#D8C9AA" opacity=".6"/>
-        <path d="M112 76L150 18L188 76Z" fill="#B97869"/><path d="M150 18V4M144 9h12" stroke="#C5A66A" stroke-width="3" stroke-linecap="round"/>
-        <path d="M134 228V186a16 16 0 0 1 32 0V228Z" fill="#263C2E"/><path d="M142 228V190a8 8 0 0 1 16 0V228Z" fill="#3a5a45"/>
-        <circle cx="150" cy="140" r="15" fill="#F8F4E9" stroke="#C5A66A" stroke-width="3"/><path d="M150 125V155M135 140H165M139 129L161 151M161 129L139 151" stroke="#C5A66A" stroke-width="1.2"/>
-        <g fill="#7E9BAA"><path d="M84 190v-22a7 7 0 0 1 14 0v22Z"/><path d="M104 190v-22a7 7 0 0 1 14 0v22Z"/><path d="M182 190v-22a7 7 0 0 1 14 0v22Z"/><path d="M202 190v-22a7 7 0 0 1 14 0v22Z"/></g>
-        <g fill="#C5A66A"><circle cx="150" cy="104" r="3"/></g>
-      </g>
-    </svg>
-    <p class="eyebrow gold rv" style="--d:1">Wedding Ceremony &amp; Nuptials</p>
-    <h2 class="title rv" style="--d:2">The Celebration</h2>
-    <div class="date rv" style="--d:3" aria-label="Monday, 28 December 2026">
-      <span class="mo">December</span>
-      <span class="dn" id="dayNum">28</span>
-      <span class="yr"><i></i>2026<i></i></span>
-    </div>
-    <div class="frame rv" style="--d:4">
-      <svg class="fb tl" viewBox="-12 -12 24 24"><use href="#bl" x="-12" y="-12" width="24" height="24"/></svg>
-      <svg class="fb br" viewBox="-12 -12 24 24"><use href="#bl" x="-12" y="-12" width="24" height="24"/></svg>
-      <p class="meta">Monday &nbsp;·&nbsp; 11:00 AM <span>(Morning)</span></p>
-      <h3 class="venue">All Saints Church</h3>
-      <p class="meta">Secunderabad</p>
-    </div>
-    <div class="btns rv" style="--d:5">
-      <button class="btn" id="calBtn" type="button"><svg class="ic"><use href="#i-cal"/></svg>Add to Calendar</button>
-      <a class="btn" id="mapBtn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=All+Saints+Church+Secunderabad"><svg class="ic"><use href="#i-pin"/></svg>Get Directions</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ SLIDE 04 — COUNTDOWN, RSVP & BLESSINGS ============ -->
-<section class="slide" id="s4" data-theme="light" aria-label="Countdown and RSVP">
-  <div class="inner">
-    <p class="eyebrow rv" style="--d:0">28 December 2026 · 11:00 AM IST</p>
-    <h2 class="title rv" style="--d:1">Counting Down<br>to Forever</h2>
-    <div class="wreath rv" style="--d:2">
-      <svg id="wreathSvg" viewBox="0 0 320 330" aria-hidden="true"></svg>
-      <div class="cd" id="cd" role="timer" aria-label="Time remaining until the wedding">
-        <div><b id="cD">0</b><small>Days</small></div><div><b id="cH">00</b><small>Hours</small></div>
-        <div><b id="cM">00</b><small>Minutes</small></div><div><b id="cS">00</b><small>Seconds</small></div>
+        <!-- Center-Low Gold Wax Seal Button -->
+        <div class="absolute bottom-[20%] inset-x-0 flex flex-col items-center justify-center z-20">
+          <button 
+            id="wax-seal-btn" 
+            type="button" 
+            class="wax-seal group" 
+            aria-label="Tap to break wax seal and open wedding invitation"
+          >
+            <div class="seal-half-left"></div>
+            <div class="seal-half-right"></div>
+            <div class="relative z-10 flex flex-col items-center justify-center text-ivory">
+              <span class="font-serif italic text-xl font-medium tracking-tighter drop-shadow-sm">D&amp;A</span>
+            </div>
+          </button>
+          
+          <div class="flex items-center gap-1.5 mt-3 px-3 py-1 bg-ivory/85 rounded-full border border-gold/30 shadow-sm text-forest/90">
+            <i data-lucide="hand" class="w-3.5 h-3.5 text-gold animate-bounce"></i>
+            <span class="font-serif italic text-xs tracking-wider">Tap to open</span>
+          </div>
+        </div>
       </div>
-      <p class="done" id="cdDone" hidden>The celebration<br>has begun</p>
-    </div>
-    <p class="script rv" style="--d:3">We can’t wait to celebrate our special day with you!</p>
 
-    <div class="rsvp rv" style="--d:4">
-      <h3 class="sub">RSVP &amp; Blessings</h3>
-      <form id="rsvp" novalidate>
-        <label for="gn">Guest name</label>
-        <input id="gn" name="name" maxlength="60" autocomplete="name" required>
-        <fieldset><legend>Will you join us? <em>(optional)</em></legend>
-          <label class="chip"><input type="radio" name="rsvp" value="Joyfully attending"><span>Joyfully accept</span></label>
-          <label class="chip"><input type="radio" name="rsvp" value="Regretfully unable"><span>Regretfully decline</span></label>
-        </fieldset>
-        <label for="gw">Your blessing or wish</label>
-        <textarea id="gw" name="wish" rows="3" maxlength="200" required></textarea>
-        <small class="cnt" id="cnt">0 / 200</small>
-        <p class="err" id="err" role="alert"></p>
-        <button class="btn solid" type="submit">Send Your Wishes<svg class="ic"><use href="#i-send"/></svg></button>
-      </form>
-      <div class="thanks" id="thanks" hidden role="status" tabindex="-1">
-        <svg viewBox="-12 -12 24 24"><use href="#bl" x="-12" y="-12" width="24" height="24"/></svg>
-        <h4>Thank you, <span id="tn"></span></h4>
-        <p>Your wishes have been tucked into our hearts — and onto the wall below.</p>
-        <button class="link" id="again" type="button">Write another wish</button>
+      <!-- OPENED INVITATION CARD VIEW -->
+      <div 
+        id="invitation-card-opened" 
+        class="opacity-0 pointer-events-none transition-all duration-1000 relative w-full max-w-[420px] aspect-[9/14] sm:aspect-[3/4.5] max-h-[88dvh] rounded p-4 sm:p-8 flex flex-col justify-between text-center paper-ivory-texture deckled-border shadow-2xl overflow-hidden" 
+        aria-hidden="true"
+      >
+        <!-- Painted Floral Border Frame overlay -->
+        <div class="absolute inset-0 bg-cover bg-center pointer-events-none opacity-20" style="background-image: url('/assets/card-frame.webp');"></div>
+        <div class="absolute inset-3 border border-gold/40 pointer-events-none"></div>
+
+        <!-- Card Header -->
+        <div class="relative z-10 pt-4">
+          <p class="font-sans text-[10px] uppercase tracking-[0.28em] text-olive font-semibold mb-2">The Wedding Invitation</p>
+          <p class="font-serif italic text-sm text-forest/80">Together with their parents</p>
+        </div>
+
+        <!-- Couple Names -->
+        <div class="relative z-10 py-2">
+          <h2 class="font-serif text-3xl sm:text-4xl text-forest tracking-tight leading-tight">
+            Dheeraj
+            <span class="block font-serif italic text-2xl sm:text-3xl text-gold font-light my-1">&amp;</span>
+            Angle
+          </h2>
+          <p class="font-serif italic text-sm text-forest/80 mt-1">request the honour of your presence</p>
+        </div>
+
+        <!-- Olive divider ornament -->
+        <div class="relative z-10 flex items-center justify-center my-1">
+          <img src="/assets/olive-branch.svg" alt="" class="w-36 h-auto opacity-75" aria-hidden="true">
+        </div>
+
+        <!-- Date & Venue Details -->
+        <div class="relative z-10 space-y-1.5 pb-2">
+          <p class="font-display text-lg sm:text-xl text-forest font-semibold tracking-wide">
+            Monday · 28 December 2026
+          </p>
+          <p class="font-sans text-xs tracking-widest uppercase text-forest/85">
+            At Eleven O'Clock in the Morning
+          </p>
+          <div class="pt-2">
+            <p class="font-serif text-base sm:text-lg font-medium text-forest">
+              All Saints Church
+            </p>
+            <p class="font-sans text-xs text-forest/75 tracking-wider">
+              Secunderabad, Telangana
+            </p>
+          </div>
+        </div>
+
+        <!-- Swipe / Next Hint -->
+        <div id="envelope-next-cue" class="relative z-10 pt-2 opacity-0 transition-opacity duration-700">
+          <p class="font-sans text-[10px] uppercase tracking-[0.25em] text-gold font-medium flex items-center justify-center gap-1">
+            <span>Swipe or tap Next</span>
+            <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+          </p>
+        </div>
       </div>
+    </section>
+
+    <!-- ========================================================
+         SLIDE 02: THE COUPLE (LIGHT EDITORIAL MOOD)
+         ======================================================== -->
+    <section 
+      id="slide-couple" 
+      class="slide-panel flex items-center justify-center p-3 sm:p-6 paper-ivory-texture" 
+      data-title="The Couple" 
+      data-theme="light" 
+      aria-roledescription="slide" 
+      aria-label="2 of 4: The Couple"
+      inert
+      aria-hidden="true"
+    >
+      <!-- Ghosted romantic script watermark pattern -->
+      <div class="watermark-pattern">
+        amore · eternity · dheeraj · angle · devotion · amore · eternity · dheeraj · angle · devotion<br>
+        one journey · two souls · a lifetime of memories · together forever · amore · devotion<br>
+        amore · eternity · dheeraj · angle · devotion · amore · eternity · dheeraj · angle · devotion
+      </div>
+
+      <!-- Subtle Italian stone balustrade arch backdrop at top -->
+      <div class="absolute top-0 inset-x-0 h-44 bg-cover bg-top opacity-15 pointer-events-none" style="background-image: url('/assets/couple-arch.webp');"></div>
+
+      <!-- Content Container -->
+      <div class="relative z-10 w-full max-w-md mx-auto text-center flex flex-col justify-between h-full max-h-[92dvh] py-3 sm:py-6">
+        
+        <!-- Header -->
+        <div>
+          <p class="font-sans text-[10px] uppercase tracking-[0.28em] text-olive font-semibold mb-1">Our Story</p>
+          <h2 class="font-serif text-2xl sm:text-3xl text-forest tracking-tight leading-snug">
+            Two Hearts, One Beautiful Story
+          </h2>
+          <div class="w-16 h-px bg-gold/50 mx-auto mt-2"></div>
+        </div>
+
+        <!-- Staggered Editorial Portraits Composition -->
+        <div class="relative grid grid-cols-2 gap-3 sm:gap-4 items-center my-auto py-2">
+          
+          <!-- Groom Portrait (Offset slightly upward) -->
+          <div class="flex flex-col items-center -translate-y-2 transition-transform duration-300 hover:scale-[1.02]">
+            <div class="relative w-32 sm:w-36 aspect-[3/4] rounded deckled-border overflow-hidden bg-beige/60 shadow-md">
+              <img 
+                src="/assets/couple/dheeraj.jpg" 
+                alt="Dheeraj" 
+                class="w-full h-full object-cover object-top"
+                loading="lazy"
+                decoding="async"
+                onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
+              >
+              <!-- Painted watercolor silhouette placeholder -->
+              <div class="hidden w-full h-full flex flex-col items-center justify-center p-2 bg-gradient-to-b from-[#EFE5D2] to-[#DCCDB1] text-forest">
+                <span class="font-display text-4xl text-forest/70 font-light italic mb-1">D</span>
+                <span class="font-sans text-[8px] uppercase tracking-wider text-forest/60">Groom</span>
+              </div>
+              <img src="/assets/floral-corner.webp" alt="" class="absolute top-0 right-0 w-8 h-8 opacity-75 pointer-events-none" aria-hidden="true">
+            </div>
+            <h3 class="font-serif text-xl text-forest font-medium mt-2">Dheeraj</h3>
+            <span class="font-sans text-[10px] uppercase tracking-[0.22em] text-olive font-semibold">The Groom</span>
+            <p class="font-serif italic text-xs text-forest/75 mt-1 px-1 line-clamp-2">An architect of warmth, devotion, and lifelong joy.</p>
+          </div>
+
+          <!-- Ampersand Script Divider -->
+          <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
+            <span class="font-script text-4xl sm:text-5xl text-gold drop-shadow-sm">&amp;</span>
+          </div>
+
+          <!-- Bride Portrait (Offset slightly downward) -->
+          <div class="flex flex-col items-center translate-y-3 transition-transform duration-300 hover:scale-[1.02]">
+            <div class="relative w-32 sm:w-36 aspect-[3/4] rounded deckled-border overflow-hidden bg-beige/60 shadow-md">
+              <img 
+                src="/assets/couple/angle.jpg" 
+                alt="Angle" 
+                class="w-full h-full object-cover object-top"
+                loading="lazy"
+                decoding="async"
+                onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
+              >
+              <!-- Painted watercolor silhouette placeholder -->
+              <div class="hidden w-full h-full flex flex-col items-center justify-center p-2 bg-gradient-to-b from-[#EFE5D2] to-[#DCCDB1] text-forest">
+                <span class="font-display text-4xl text-forest/70 font-light italic mb-1">A</span>
+                <span class="font-sans text-[8px] uppercase tracking-wider text-forest/60">Bride</span>
+              </div>
+              <img src="/assets/floral-corner.webp" alt="" class="absolute bottom-0 left-0 w-8 h-8 rotate-180 opacity-75 pointer-events-none" aria-hidden="true">
+            </div>
+            <h3 class="font-serif text-xl text-forest font-medium mt-2">Angle</h3>
+            <span class="font-sans text-[10px] uppercase tracking-[0.22em] text-olive font-semibold">The Bride</span>
+            <p class="font-serif italic text-xs text-forest/75 mt-1 px-1 line-clamp-2">A spirit of grace, laughter, and radiant wonder.</p>
+          </div>
+
+        </div>
+
+        <!-- Caption -->
+        <div class="pt-2">
+          <p class="font-serif italic text-sm sm:text-base text-forest/85 max-w-xs mx-auto leading-relaxed">
+            “Two souls, one journey, and a lifetime of beautiful memories.”
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SLIDE 03: THE CELEBRATION (DARK FOREST MOOD)
+         ======================================================== -->
+    <section 
+      id="slide-celebration" 
+      class="slide-panel flex items-center justify-center p-3 sm:p-6 paper-forest-texture text-ivory" 
+      data-title="The Celebration" 
+      data-theme="dark" 
+      aria-roledescription="slide" 
+      aria-label="3 of 4: The Celebration"
+      inert
+      aria-hidden="true"
+    >
+      <div class="relative z-10 w-full max-w-md mx-auto flex flex-col justify-between h-full max-h-[92dvh] py-2 sm:py-4">
+        
+        <!-- Church Watercolor Painting inside Torn-Paper Arch (Top half) -->
+        <div class="relative w-full h-40 sm:h-48 rounded overflow-hidden deckled-edge-torn shadow-lg" data-parallax="0.3">
+          <img 
+            src="/assets/church-watercolor.webp" 
+            alt="Watercolor illustration of All Saints Church in Secunderabad" 
+            class="w-full h-full object-cover object-center"
+            loading="lazy"
+            decoding="async"
+          >
+          <div class="absolute inset-0 bg-gradient-to-t from-forest via-transparent to-transparent opacity-60"></div>
+        </div>
+
+        <!-- Ornate Double Border Information Card -->
+        <div class="relative p-4 sm:p-5 border border-gold/50 rounded bg-forest/70 backdrop-blur-sm shadow-card-dark text-center my-auto">
+          <!-- Animated Double Hairline -->
+          <div class="absolute inset-1.5 border border-gold/30 rounded pointer-events-none"></div>
+
+          <p class="font-sans text-[10px] uppercase tracking-[0.28em] text-gold font-medium mb-1">
+            Wedding Ceremony &amp; Nuptials
+          </p>
+          <h2 class="font-serif text-2xl sm:text-3xl text-ivory tracking-tight mb-2">
+            The Celebration
+          </h2>
+
+          <!-- Date Reveal with Roll & Gold Underline -->
+          <div class="flex items-center justify-center gap-3 my-2" aria-label="Monday, 28 December 2026">
+            <span class="font-serif italic text-base text-beige">Monday</span>
+            <div class="relative inline-block">
+              <span class="font-display text-5xl sm:text-6xl text-gold font-bold tracking-tight">28</span>
+              <div class="absolute bottom-0 inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+            </div>
+            <span class="font-serif italic text-base text-beige">December 2026</span>
+          </div>
+
+          <!-- 5-Day Strip with Heart Marker on 28 -->
+          <div class="flex items-center justify-center gap-4 text-xs font-sans text-beige/70 my-2" aria-hidden="true">
+            <span>26</span>
+            <span>27</span>
+            <div class="date-heart-badge text-gold font-bold text-sm">28</div>
+            <span>29</span>
+            <span>30</span>
+          </div>
+
+          <!-- Ceremony Details -->
+          <div class="space-y-1 mt-3 pt-2 border-t border-gold/20 text-xs sm:text-sm font-sans">
+            <div class="flex items-center justify-center gap-2 text-ivory">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-gold"></i>
+              <span>11:00 AM IST · Morning Nuptials</span>
+            </div>
+            <p class="font-serif text-lg text-ivory font-medium mt-1">All Saints Church</p>
+            <p class="text-beige/80 text-xs">Secunderabad, Telangana</p>
+          </div>
+
+          <!-- Action Buttons (Calendar & Directions) -->
+          <div class="flex flex-col sm:flex-row gap-2.5 mt-4 pt-1">
+            <button 
+              id="btn-add-calendar" 
+              type="button" 
+              class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gold hover:bg-gold/90 text-forest font-sans font-semibold text-xs tracking-wider uppercase rounded shadow transition-all active:scale-[0.98]"
+            >
+              <i data-lucide="calendar" class="w-4 h-4"></i>
+              <span>Add to Calendar</span>
+            </button>
+
+            <a 
+              id="link-maps" 
+              href="https://www.google.com/maps/dir/?api=1&destination=All+Saints+Church+Secunderabad&travelmode=driving" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 border border-gold/60 hover:bg-gold/15 text-ivory font-sans font-semibold text-xs tracking-wider uppercase rounded transition-all active:scale-[0.98]"
+            >
+              <i data-lucide="map-pin" class="w-4 h-4 text-gold"></i>
+              <span>Get Directions</span>
+            </a>
+          </div>
+
+          <!-- Subtle Google Calendar Direct Link -->
+          <div class="mt-2.5">
+            <a 
+              id="link-gcal" 
+              href="#" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="text-[11px] font-sans text-beige/70 hover:text-gold underline tracking-wide transition-colors"
+            >
+              Add via Google Calendar
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SLIDE 04: COUNTDOWN, RSVP & BLESSINGS (SCROLLABLE ON MOBILE)
+         ======================================================== -->
+    <section 
+      id="slide-rsvp" 
+      class="slide-panel is-scrollable p-4 sm:p-8 paper-ivory-texture" 
+      data-title="Countdown &amp; Blessings" 
+      data-theme="light" 
+      aria-roledescription="slide" 
+      aria-label="4 of 4: Countdown, RSVP and Blessings"
+      inert
+      aria-hidden="true"
+    >
+      <div class="max-w-md mx-auto text-center space-y-6 py-4 pb-20">
+        
+        <!-- COUNTDOWN SECTION -->
+        <div id="countdown-component" class="relative">
+          <p class="font-sans text-[10px] uppercase tracking-[0.28em] text-olive font-semibold mb-1">
+            28 December 2026 · 11:00 AM IST
+          </p>
+          <h2 class="font-serif text-2xl sm:text-3xl text-forest tracking-tight mb-4">
+            Counting Down to Forever
+          </h2>
+
+          <!-- Painted Floral Wreath Frame with Majolica Tile Rim -->
+          <div class="relative w-64 sm:w-72 aspect-square mx-auto flex items-center justify-center">
+            <img 
+              src="/assets/floral-wreath.webp" 
+              alt="" 
+              class="absolute inset-0 w-full h-full object-contain pointer-events-none drop-shadow-md"
+              aria-hidden="true"
+            >
+            
+            <!-- Countdown Numerals Grid -->
+            <div id="cd-digits-grid" class="relative z-10 grid grid-cols-4 gap-2 text-center px-4">
+              <div class="flex flex-col items-center">
+                <span id="cd-days" class="font-display text-2xl sm:text-3xl text-forest font-bold transition-transform">0</span>
+                <span class="font-sans text-[9px] uppercase tracking-wider text-forest/70 font-medium">Days</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <span id="cd-hours" class="font-display text-2xl sm:text-3xl text-forest font-bold transition-transform">00</span>
+                <span class="font-sans text-[9px] uppercase tracking-wider text-forest/70 font-medium">Hours</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <span id="cd-minutes" class="font-display text-2xl sm:text-3xl text-forest font-bold transition-transform">00</span>
+                <span class="font-sans text-[9px] uppercase tracking-wider text-forest/70 font-medium">Mins</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <span id="cd-seconds" class="font-display text-2xl sm:text-3xl text-forest font-bold transition-transform">00</span>
+                <span class="font-sans text-[9px] uppercase tracking-wider text-forest/70 font-medium">Secs</span>
+              </div>
+            </div>
+
+            <!-- Alternate status message for day of event / ended -->
+            <div id="cd-status-message" class="hidden relative z-10 px-6 font-serif italic text-lg text-forest leading-snug">
+              Today is the day. Join us in celebration.
+            </div>
+          </div>
+
+          <p class="font-serif italic text-sm text-forest/85 mt-2">
+            “We can't wait to celebrate our special day with you!”
+          </p>
+        </div>
+
+        <!-- RSVP & BLESSINGS FORM SECTION -->
+        <div class="p-4 sm:p-6 bg-ivory/90 rounded border border-gold/40 shadow-paper text-left relative overflow-hidden">
+          <div class="text-center mb-4">
+            <h3 class="font-serif text-xl text-forest font-medium">RSVP &amp; Blessings</h3>
+            <p class="font-serif italic text-xs text-forest/70">Leave a warm message for Dheeraj &amp; Angle</p>
+          </div>
+
+          <form id="rsvp-form" class="space-y-3.5" novalidate>
+            <!-- Honeypot anti-spam field (hidden from view & screen readers) -->
+            <div class="hidden" aria-hidden="true">
+              <label for="rsvp-honeypot">Leave blank</label>
+              <input type="text" id="rsvp-honeypot" name="user_bot_check" tabindex="-1" autocomplete="off">
+            </div>
+
+            <!-- Guest Name -->
+            <div>
+              <label for="rsvp-name" class="block font-sans text-xs font-semibold text-forest uppercase tracking-wider mb-1">
+                Guest Name <span class="text-rose-700">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="rsvp-name" 
+                name="guest_name" 
+                required 
+                maxlength="60" 
+                placeholder="e.g. Rachel &amp; Michael" 
+                class="w-full px-3 py-2 bg-ivory border border-gold/40 rounded text-forest font-serif text-base focus:border-gold focus:ring-1 focus:ring-gold outline-none"
+              >
+            </div>
+
+            <!-- RSVP Attendance Segmented Selector -->
+            <div>
+              <fieldset>
+                <legend class="block font-sans text-xs font-semibold text-forest uppercase tracking-wider mb-1.5">
+                  Will you join us in Secunderabad?
+                </legend>
+                <div class="grid grid-cols-2 gap-2 text-xs font-sans">
+                  <label class="flex items-center gap-2 p-2 border border-gold/30 rounded cursor-pointer hover:bg-beige/30 transition-colors">
+                    <input type="radio" name="rsvp_status" value="Joyfully accepting" checked class="accent-gold">
+                    <span class="text-forest">Joyfully accepting</span>
+                  </label>
+                  <label class="flex items-center gap-2 p-2 border border-gold/30 rounded cursor-pointer hover:bg-beige/30 transition-colors">
+                    <input type="radio" name="rsvp_status" value="Regretfully declining" class="accent-gold">
+                    <span class="text-forest">Regretfully declining</span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+
+            <!-- Personal Blessing / Wish -->
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label for="rsvp-wish" class="block font-sans text-xs font-semibold text-forest uppercase tracking-wider">
+                  Your Blessing / Message <span class="text-rose-700">*</span>
+                </label>
+                <span id="rsvp-char-count" class="text-[10px] font-sans text-forest/60">0 / 280</span>
+              </div>
+              <textarea 
+                id="rsvp-wish" 
+                name="guest_wish" 
+                rows="3" 
+                required 
+                maxlength="280" 
+                placeholder="Write your prayers, blessings, or sweet memories..." 
+                class="w-full px-3 py-2 bg-ivory border border-gold/40 rounded text-forest font-serif text-base focus:border-gold focus:ring-1 focus:ring-gold outline-none resize-none"
+              ></textarea>
+            </div>
+
+            <!-- Inline Accessible Error Message Container -->
+            <div id="rsvp-error-msg" class="hidden text-xs text-rose-800 font-sans p-2 rounded bg-rose-50 border border-rose-200" role="alert"></div>
+
+            <!-- Submit Button -->
+            <button 
+              id="rsvp-submit-btn" 
+              type="submit" 
+              class="w-full flex items-center justify-center gap-2 py-3 bg-forest hover:bg-forest/90 text-ivory font-sans font-medium text-xs tracking-widest uppercase rounded shadow transition-all active:scale-[0.99]"
+            >
+              <span>Send Your Wishes</span>
+              <i data-lucide="send" class="w-3.5 h-3.5 text-gold"></i>
+            </button>
+          </form>
+
+          <!-- Success Confirmation Card -->
+          <div id="rsvp-success-card" class="hidden text-center py-6 px-3 space-y-2" tabindex="-1">
+            <div class="w-10 h-10 rounded-full bg-olive/15 text-olive flex items-center justify-center mx-auto mb-2">
+              <i data-lucide="heart" class="w-5 h-5 fill-current"></i>
+            </div>
+            <h4 class="font-serif text-2xl text-forest">Thank you, <span id="rsvp-success-name">friend</span></h4>
+            <p class="font-serif italic text-sm text-forest/80 max-w-xs mx-auto leading-relaxed">
+              Your wishes have reached our hearts and are preserved on the wall below.
+            </p>
+            <button 
+              id="rsvp-write-another-btn" 
+              type="button" 
+              class="mt-3 text-xs font-sans text-gold hover:underline tracking-wider uppercase font-semibold"
+            >
+              Write another wish
+            </button>
+          </div>
+        </div>
+
+        <!-- WISHES WALL AUTO-SCROLL TICKER -->
+        <div class="space-y-2">
+          <p class="font-sans text-[10px] uppercase tracking-[0.28em] text-olive font-semibold">
+            Wall of Blessings
+          </p>
+          <div class="wishes-ticker-container h-48 py-1" tabindex="0" aria-label="Guest wishes ticker (auto-scrolling, hover or focus to pause)">
+            <div id="wishes-ticker-track" class="wishes-ticker-track">
+              <!-- Dynamically populated cards -->
+            </div>
+          </div>
+          <p class="text-[10px] font-sans text-forest/60 italic">
+            Sample wishes are shown for demonstration. Wishes you add are saved on this device only.
+          </p>
+        </div>
+
+        <!-- FINAL ROMANTIC SIGN-OFF -->
+        <div class="pt-6 pb-2 text-center space-y-1">
+          <div class="flex items-center justify-center mb-1">
+            <img src="/assets/olive-branch.svg" alt="" class="w-28 h-auto opacity-70" aria-hidden="true">
+          </div>
+          <p class="font-script text-3xl sm:text-4xl text-gold">With love,</p>
+          <p class="font-serif text-2xl sm:text-3xl text-forest font-light tracking-tight">Dheeraj &amp; Angle</p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================
+       FLOATING NAVIGATION BAR & PROGRESS INDICATOR
+       ======================================================== -->
+  <nav class="fixed bottom-3 inset-x-0 z-40 flex items-center justify-between px-4 sm:px-8 pointer-events-none" aria-label="Slide navigation">
+    <!-- Prev Arrow Button -->
+    <button 
+      id="nav-prev" 
+      type="button" 
+      class="pointer-events-auto w-11 h-11 rounded-full bg-ivory/85 backdrop-blur-md border border-gold/40 shadow-md flex items-center justify-center text-forest transition-all hover:bg-ivory hover:scale-105 active:scale-95 disabled:opacity-30 disabled:pointer-events-none" 
+      aria-label="Previous slide"
+      disabled
+    >
+      <i data-lucide="chevron-left" class="w-5 h-5"></i>
+    </button>
+
+    <!-- 4-Dot Progress Indicator -->
+    <div id="nav-dots" class="pointer-events-auto flex items-center gap-2 px-3 py-2 bg-ivory/85 backdrop-blur-md rounded-full border border-gold/40 shadow-sm" role="tablist">
+      <!-- Generated in slides.js -->
     </div>
 
-    <div class="wall rv" style="--d:5">
-      <p class="eyebrow">Wishes &amp; Blessings</p>
-      <div class="ticker" id="ticker" tabindex="0" aria-label="Guest wishes"><div id="track"></div></div>
-      <small class="note">Sample wishes are shown for demonstration. Wishes you add are saved on this device only.</small>
-    </div>
-    <p class="sign rv" style="--d:6">With love, Dheeraj &amp; Angle</p>
-  </div>
-</section>
-</main>
+    <!-- Next Arrow Button -->
+    <button 
+      id="nav-next" 
+      type="button" 
+      class="pointer-events-auto w-11 h-11 rounded-full bg-ivory/85 backdrop-blur-md border border-gold/40 shadow-md flex items-center justify-center text-forest transition-all hover:bg-ivory hover:scale-105 active:scale-95 disabled:opacity-30 disabled:pointer-events-none" 
+      aria-label="Next slide"
+      disabled
+    >
+      <i data-lucide="chevron-right" class="w-5 h-5"></i>
+    </button>
+  </nav>
 
-<canvas id="petals" aria-hidden="true"></canvas>
+  <!-- Optional Bottom-Right Ambient Music Toggle -->
+  <button 
+    id="audio-toggle-btn" 
+    type="button" 
+    class="hidden fixed bottom-16 right-4 sm:right-8 z-40 w-10 h-10 rounded-full bg-ivory/90 backdrop-blur-md border border-gold/40 shadow-md flex items-center justify-center text-forest hover:scale-105 active:scale-95 transition-all" 
+    aria-label="Play ambient music"
+  >
+    <i data-lucide="volume-x" class="w-4 h-4 icon-muted"></i>
+    <i data-lucide="volume-2" class="w-4 h-4 icon-playing hidden text-gold"></i>
+  </button>
+  <audio id="ambient-audio" src="/assets/audio/ambient.mp3" preload="none" loop></audio>
 
-<nav class="nav" aria-label="Invitation navigation">
-  <button id="prev" class="arrow" aria-label="Previous page"><svg class="ic"><use href="#i-l"/></svg></button>
-  <div class="dots" role="tablist"></div>
-  <button id="next" class="arrow" aria-label="Next page"><svg class="ic"><use href="#i-r"/></svg></button>
-</nav>
-<script src="app.js"></script>
+  <!-- Application Entrypoint -->
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>

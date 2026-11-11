@@ -1,0 +1,345 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-ivory: #F8F4E9;
+    --color-olive: #68734D;
+    --color-forest: #263C2E;
+    --color-gold: #C5A66A;
+    --color-gold-dark: #8F6E2E;
+    --color-blush: #D9A9A0;
+    --color-beige: #E9DDC9;
+    --color-sea-blue: #4F7FA8;
+    --color-terracotta: #C9825B;
+
+    --ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    background-color: var(--color-ivory);
+    color: var(--color-forest);
+    font-family: 'Cormorant Garamond', Garamond, Georgia, serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    touch-action: pan-y;
+  }
+
+  /* Safe area handling */
+  body {
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+}
+
+/* =========================================
+   PAPER TEXTURES & WATERMARKS
+   ========================================= */
+.paper-ivory-texture {
+  background-color: #F8F4E9;
+  background-image: url('/assets/paper-ivory.webp');
+  background-repeat: repeat;
+}
+
+.paper-forest-texture {
+  background-color: #263C2E;
+  background-image: url('/assets/paper-forest.webp');
+  background-repeat: repeat;
+}
+
+/* Ghosted romantic watermark text */
+.watermark-pattern {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  overflow: hidden;
+  user-select: none;
+  font-family: 'Pinyon Script', cursive;
+  font-size: 2.75rem;
+  line-height: 1.8;
+  color: var(--color-forest);
+  white-space: nowrap;
+  transform: rotate(-12deg) scale(1.15);
+  transform-origin: center;
+}
+
+/* =========================================
+   DECKLED EDGES & TORN PAPER BORDERS
+   ========================================= */
+.deckled-border {
+  border: 1px solid rgba(197, 166, 106, 0.45);
+  box-shadow: 0 0 0 3px rgba(248, 244, 233, 0.9), 0 0 0 4px rgba(197, 166, 106, 0.25);
+  border-radius: 2px;
+}
+
+.deckled-edge-torn {
+  clip-path: polygon(
+    0% 0%, 100% 0%, 100% 98.2%,
+    98.5% 99.1%, 97% 98.4%, 95.2% 99.5%, 93% 98.6%, 91% 99.2%,
+    88.8% 98.3%, 86.5% 99.4%, 84% 98.5%, 81.5% 99.3%, 79% 98.2%,
+    76.5% 99.1%, 74% 98.4%, 71.5% 99.5%, 68.5% 98.3%, 66% 99.2%,
+    63% 98.5%, 60% 99.4%, 57% 98.2%, 54% 99.1%, 51% 98.4%,
+    48% 99.3%, 45% 98.2%, 42% 99.1%, 39% 98.4%, 36% 99.5%,
+    33% 98.3%, 30% 99.2%, 27% 98.5%, 24% 99.4%, 21% 98.2%,
+    18% 99.1%, 15% 98.4%, 12% 99.3%, 9% 98.2%, 6% 99.1%,
+    3% 98.4%, 0% 99.2%
+  );
+}
+
+.torn-paper-seam-top {
+  clip-path: polygon(
+    0% 1.8%, 3% 0.9%, 6% 1.6%, 9% 0.7%, 12% 1.8%, 15% 0.9%,
+    18% 1.7%, 21% 0.8%, 24% 1.6%, 27% 0.7%, 30% 1.5%, 33% 0.8%,
+    36% 1.7%, 39% 0.9%, 42% 1.6%, 45% 0.7%, 48% 1.8%, 51% 0.9%,
+    54% 1.6%, 57% 0.7%, 60% 1.8%, 63% 0.9%, 66% 1.7%, 68.5% 0.8%,
+    71.5% 1.6%, 74% 0.7%, 76.5% 1.8%, 79% 0.9%, 81.5% 1.7%, 84% 0.8%,
+    86.5% 1.6%, 88.8% 0.7%, 91% 1.8%, 93% 0.9%, 95.2% 1.7%, 97% 0.8%,
+    98.5% 1.6%, 100% 0.8%, 100% 100%, 0% 100%
+  );
+}
+
+/* =========================================
+   3D ENVELOPE CEREMONY & FLAPS
+   ========================================= */
+.envelope-viewport {
+  perspective: 1400px;
+  perspective-origin: center center;
+}
+
+.envelope-stage {
+  transform-style: preserve-3d;
+}
+
+/* Wax seal styling & pulsating cue */
+.wax-seal {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, #F5E5C0 0%, #D8B778 45%, #C5A66A 70%, #8A6828 100%);
+  box-shadow: 
+    0 10px 24px rgba(45, 30, 15, 0.45),
+    inset 0 2px 4px rgba(255, 255, 255, 0.6),
+    inset 0 -3px 6px rgba(60, 40, 10, 0.6);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: transform 0.3s var(--ease-luxury), box-shadow 0.3s var(--ease-luxury);
+  user-select: none;
+}
+
+.wax-seal:hover {
+  transform: scale(1.05);
+  box-shadow: 
+    0 14px 30px rgba(45, 30, 15, 0.55),
+    inset 0 2px 4px rgba(255, 255, 255, 0.7),
+    inset 0 -3px 6px rgba(60, 40, 10, 0.7);
+}
+
+.wax-seal:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 4px;
+}
+
+/* Pulsating golden ripple ring */
+.wax-seal::after {
+  content: '';
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(197, 166, 106, 0.6);
+  animation: seal-pulse 2.4s infinite cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
+
+@keyframes seal-pulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.9;
+  }
+  60% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* Cracked seal physics */
+.seal-half-left, .seal-half-right {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  transition: transform 0.8s var(--ease-luxury), opacity 0.7s ease-out;
+}
+
+.is-opened .seal-half-left {
+  clip-path: polygon(0 0, 52% 0, 48% 45%, 55% 55%, 46% 100%, 0 100%);
+  transform: translate(-30px, 20px) rotate(-28deg);
+  opacity: 0;
+}
+
+.is-opened .seal-half-right {
+  clip-path: polygon(52% 0, 100% 0, 100% 100%, 46% 100%, 55% 55%, 48% 45%);
+  transform: translate(30px, 20px) rotate(28deg);
+  opacity: 0;
+}
+
+/* Flap 3D animations */
+.envelope-flap-top {
+  transform-origin: top center;
+  transition: transform 1.1s var(--ease-luxury), z-index 0.01s 0.4s;
+}
+
+.is-opened .envelope-flap-top {
+  transform: rotateX(178deg);
+  z-index: 5 !important;
+}
+
+.envelope-card-inner {
+  transition: transform 1.4s var(--ease-luxury), opacity 0.8s ease-out;
+}
+
+.is-opened .envelope-card-inner {
+  transform: translateY(-80%) scale(1.02);
+}
+
+/* =========================================
+   DATE STRIP HEART HIGHLIGHT (SLIDE 3)
+   ========================================= */
+.date-heart-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+}
+
+.date-heart-badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid var(--color-gold);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  transform: scale(1.15);
+  box-shadow: 0 0 12px rgba(197, 166, 106, 0.4);
+}
+
+/* =========================================
+   WISHES WALL AUTO-SCROLL TICKER
+   ========================================= */
+.wishes-ticker-container {
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+}
+
+.wishes-ticker-track {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: vertical-ticker 38s linear infinite;
+}
+
+.wishes-ticker-container:hover .wishes-ticker-track,
+.wishes-ticker-container:focus-within .wishes-ticker-track {
+  animation-play-state: paused;
+}
+
+@keyframes vertical-ticker {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+/* =========================================
+   SLIDE TRANSITIONS & STACKING
+   ========================================= */
+.slide-panel {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.98);
+  transition: opacity 0.75s var(--ease-luxury), transform 0.75s var(--ease-luxury);
+  z-index: 10;
+  overflow: hidden;
+}
+
+.slide-panel.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+  z-index: 20;
+}
+
+.slide-panel.is-scrollable {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* =========================================
+   TOUCH TARGETS & FOCUS RINGS
+   ========================================= */
+button, a, input, textarea {
+  min-height: 44px;
+}
+
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+/* =========================================
+   REDUCED MOTION MODE OVERRIDES
+   ========================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .slide-panel {
+    transition: opacity 0.25s linear !important;
+    transform: none !important;
+  }
+
+  .wishes-ticker-track {
+    animation: none !important;
+  }
+
+  #ambient-canvas {
+    display: none !important;
+  }
+
+  .wax-seal::after {
+    display: none !important;
+  }
+}
+
