@@ -82,7 +82,7 @@ export class CalendarManager {
     const rawLines = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
-      'PRODID:-//Dheeraj & Angel//Wedding Invitation//EN',
+      'PRODID:-//Isaac Dheeraj & Angel Priscilla//Wedding Invitation//EN',
       'CALSCALE:GREGORIAN',
       'METHOD:PUBLISH',
       'BEGIN:VTIMEZONE',
@@ -132,7 +132,7 @@ export class CalendarManager {
 
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'Dheeraj-and-Angel-Wedding.ics';
+    link.download = 'Isaac-Dheeraj-and-Angel-Priscilla-Wedding.ics';
     link.style.display = 'none';
 
     document.body.appendChild(link);
@@ -151,7 +151,7 @@ export class CalendarManager {
     const dates = '20261228T110000/20261228T130000';
     const ctz = 'Asia/Kolkata';
     const details = encodeURIComponent(
-      `Celebrating the marriage of Dheeraj & Angel at ${venue.name}, ${venue.city}.`
+      `Celebrating the marriage of Isaac Dheeraj & Angel Priscilla at ${venue.name}, ${venue.city}.`
     );
     const location = encodeURIComponent(`${venue.name}, ${venue.city}`);
 

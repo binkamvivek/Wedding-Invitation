@@ -1,5 +1,5 @@
 /**
- * Dheeraj & Angel — Wedding Configuration
+ * Isaac Dheeraj & Angel Priscilla — Wedding Configuration
  * 
  * Edit this single configuration file to customize all details of the wedding.
  * Modifying this file never requires touching component or presentation code.
@@ -9,28 +9,28 @@ export const weddingConfig = {
   // Couple Information
   couple: {
     groom: {
-      name: 'Dheeraj',
-      fullName: 'Dheeraj',
+      name: 'Isaac Dheeraj',
+      fullName: 'Isaac Dheeraj',
       role: 'The Groom',
       tagline: 'An architect of warmth, quiet devotion, and lifelong joy.',
       photo: '/assets/couple/dheeraj.jpg',
       initial: 'D',
     },
     bride: {
-      name: 'Angel',
-      fullName: 'Angel',
+      name: 'Angel Priscilla',
+      fullName: 'Angel Priscilla',
       role: 'The Bride',
       tagline: 'A spirit of grace, laughter, and radiant wonder.',
       photo: '/assets/couple/angle.jpg',
       initial: 'A',
     },
-    combined: 'Dheeraj & Angel',
+    combined: 'Isaac Dheeraj & Angel Priscilla',
     monogram: 'D & A',
   },
 
   // Event Schedule & Timing
   event: {
-    title: 'Wedding Ceremony of Dheeraj & Angel',
+    title: 'Wedding Ceremony of Isaac Dheeraj & Angel Priscilla',
     subTitle: 'Wedding Ceremony & Nuptials',
     isoDate: '2026-12-28T11:00:00+05:30', // IST target timestamp
     displayDate: 'Monday · 28 December 2026',
@@ -64,7 +64,7 @@ export const weddingConfig = {
     celebrationHeadline: 'The Celebration',
     countdownHeadline: 'Counting Down to Forever',
     countdownMessage: 'We can’t wait to celebrate our special day with you!',
-    closingSignoff: 'With love, Dheeraj & Angel',
+    closingSignoff: 'With love, Isaac Dheeraj & Angel Priscilla',
     begunMessage: 'Today is the day. Join us in celebration.',
     endedMessage: 'Thank you for celebrating with us.',
   },
@@ -101,7 +101,7 @@ export const weddingConfig = {
       id: 'sample-3',
       name: 'Grace & David',
       rsvp: 'Joyfully accepting',
-      message: 'So utterly delighted for you, Dheeraj and Angel! Can’t wait to raise a toast in Secunderabad.',
+      message: 'So utterly delighted for you, Isaac Dheeraj and Angel Priscilla! Can’t wait to raise a toast in Secunderabad.',
       timestamp: '2026-11-08T09:20:00.000Z',
       isSample: true,
     },

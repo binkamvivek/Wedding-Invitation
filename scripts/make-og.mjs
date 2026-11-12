@@ -30,8 +30,8 @@ const overlay = `
     TOGETHER WITH THEIR FAMILIES
   </text>
   <text x="600" y="330" text-anchor="middle" fill="#F8F4E9"
-        font-family="Cormorant Garamond, Georgia, serif" font-size="120">
-    Dheeraj &amp; Angel
+        font-family="Cormorant Garamond, Georgia, serif" font-size="96">
+    Isaac Dheeraj &amp; Angel Priscilla
   </text>
   <line x1="480" y1="370" x2="720" y2="370" stroke="#C5A66A" stroke-width="1.5"/>
   <text x="600" y="430" text-anchor="middle" fill="#F8F4E9"

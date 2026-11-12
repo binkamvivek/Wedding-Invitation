@@ -1,4 +1,4 @@
-/* Dheeraj & Angel — Luxury Wedding Invitation Logic. Vanilla JS. */
+/* Isaac Dheeraj & Angel Priscilla — Luxury Wedding Invitation Logic. Vanilla JS. */
 import './bg-music.js';
 import EnvelopeIntro from './envelope-animation.js';
 import './painterly.js';
@@ -13,7 +13,7 @@ const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const CONFIG = {
   eventStart: '2026-12-28T11:00:00+05:30',   // IST
   eventEnd:   '20261228T130000',             // Calendar end
-  title: 'Wedding of Dheeraj & Angel',
+  title: 'Wedding of Isaac Dheeraj & Angel Priscilla',
   venue: 'All Saints Church, Secunderabad',
   endpoint: ''
 };
@@ -274,17 +274,17 @@ $('#calBtn')?.addEventListener('click', () => {
   const esc = s => s.replace(/[,;]/g, m => '\\' + m), z = n => String(n).padStart(2, '0'), d = new Date();
   const stamp = `${d.getUTCFullYear()}${z(d.getUTCMonth() + 1)}${z(d.getUTCDate())}T${z(d.getUTCHours())}${z(d.getUTCMinutes())}${z(d.getUTCSeconds())}Z`;
   const ics = [
-    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Dheeraj & Angel//Wedding Invitation//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Isaac Dheeraj & Angel Priscilla//Wedding Invitation//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
     'BEGIN:VTIMEZONE', 'TZID:Asia/Kolkata', 'BEGIN:STANDARD', 'DTSTART:19700101T000000', 'TZOFFSETFROM:+0530', 'TZOFFSETTO:+0530', 'TZNAME:IST', 'END:STANDARD', 'END:VTIMEZONE',
-    'BEGIN:VEVENT', 'UID:dheeraj-angel-wedding-20261228@invitation', 'DTSTAMP:' + stamp,
+    'BEGIN:VEVENT', 'UID:isaac-dheeraj-angel-priscilla-wedding-20261228@invitation', 'DTSTAMP:' + stamp,
     'DTSTART;TZID=Asia/Kolkata:20261228T110000', `DTEND;TZID=Asia/Kolkata:${CONFIG.eventEnd}`,
     'SUMMARY:' + esc(CONFIG.title), 'LOCATION:' + esc(CONFIG.venue),
-    'DESCRIPTION:' + esc('Wedding Ceremony & Nuptials of Dheeraj & Angel. We can\'t wait to celebrate with you!'),
+    'DESCRIPTION:' + esc('Wedding Ceremony & Nuptials of Isaac Dheeraj & Angel Priscilla. We can\'t wait to celebrate with you!'),
     'BEGIN:VALARM', 'TRIGGER:-P1D', 'ACTION:DISPLAY', 'DESCRIPTION:Wedding tomorrow', 'END:VALARM', 'END:VEVENT', 'END:VCALENDAR'
   ].join('\r\n');
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' }));
-  a.download = 'Dheeraj-and-Angel-Wedding.ics';
+  a.download = 'Isaac-Dheeraj-and-Angel-Priscilla-Wedding.ics';
   document.body.appendChild(a);
   a.click();
   a.remove();
