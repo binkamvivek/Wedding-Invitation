@@ -1,4 +1,4 @@
-﻿// scripts/make-og.mjs
+// scripts/make-og.mjs
 // Generates public/og-image.jpg (1200x630) for the link-preview card.
 // Run:  npm run og
 import sharp from 'sharp';
