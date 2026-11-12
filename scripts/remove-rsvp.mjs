@@ -23,3 +23,4 @@ fs.writeFileSync(file, out);
 
 const removed = html.length - out.length;
 console.log('Done. Removed ' + removed + ' characters from ' + file + '. Backup: ' + file + '.bak');
+
