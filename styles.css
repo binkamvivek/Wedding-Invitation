@@ -946,3 +946,16 @@ body[data-theme=dark] .v-nav {
   #track { animation: none !important; }
   html { scroll-behavior: auto !important; }
 }
+
+/* Bible verse in the "The Couple" heading space */
+.title.verse {
+  font: 400 clamp(1.45rem, 6.3vw, 2.15rem)/1.22 'Playfair Display', serif;
+  margin-bottom: .5rem;
+}
+.verse-ref {
+  font: 500 .68rem Montserrat, sans-serif;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: var(--go);
+  margin-bottom: .9rem;
+}

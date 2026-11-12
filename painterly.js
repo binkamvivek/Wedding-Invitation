@@ -589,8 +589,13 @@ const GROOM = `
   <!-- ears, face, hair -->
   <ellipse cx="33.2" cy="57" rx="2.6" ry="4.4" fill="#D8B49A"/><ellipse cx="66.8" cy="57" rx="2.6" ry="4.4" fill="#D8B49A"/>
   <ellipse cx="50" cy="56" rx="17" ry="21" fill="#E2BFA6"/>
-  <path d="M33 52C32 30 68 28 67 52C62 42 40 42 33 52Z" fill="#3A2C25"/>
-  <path d="M38 36C46 31 58 31 64 38" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity=".16"/>`;
+  <!-- short beard + small moustache -->
+  <path d="M33.1 58A17 21 0 0 0 66.9 58C65.5 63 62 67.5 57.5 69Q53.5 69.6 50 69.8Q46.5 69.6 42.5 69C38 67.5 34.5 63 33.1 58Z" fill="#3A2C25" opacity=".92"/>
+  <path d="M43.5 65.2Q46.8 63 50 64.2Q53.2 63 56.5 65.2Q53.2 65 50 66.2Q46.8 65 43.5 65.2Z" fill="#3A2C25" opacity=".92"/>
+  <!-- hair: swept-up quiff, short sides -->
+  <path d="M33 57C31.5 45 31.5 37 37 31C39.5 26.5 45 24 52 23.8C58.5 23.6 63.5 27 65.5 32C68.5 37 68.5 46 67 57L65.2 57C64.8 50 63 45 60 42.2C54 39.6 46 39.6 40 42.2C37 45 35.2 50 34.8 57Z" fill="#3A2C25"/>
+  <path d="M39 34C44 28.5 53 27 61 31" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity=".16"/>
+  <path d="M37.5 39C43 33 54 31.5 63 36" fill="none" stroke="#fff" stroke-width=".9" stroke-linecap="round" opacity=".10"/>`;
 
 const BRIDE = `
   <rect width="100" height="130" fill="url(#gPh)"/>
