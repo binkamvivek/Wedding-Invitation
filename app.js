@@ -85,7 +85,11 @@ $$('[data-split]').forEach(n => {
     const s = document.createElement('span');
     s.className = 'sp-l';
     s.style.setProperty('--i', i);
-    s.textContent = c;
+    if (c === ' ') {
+      s.innerHTML = '&nbsp;';
+    } else {
+      s.textContent = c;
+    }
     s.setAttribute('aria-hidden', 'true');
     n.appendChild(s);
   });
