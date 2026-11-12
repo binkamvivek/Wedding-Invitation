@@ -1,0 +1,121 @@
+/* ==========================================================================
+   handwriting.css   (replaces the previous version, same file name)
+
+   Slide 1 only: the names use a tall, thin calligraphy script font and are
+   "written" onto the card from left to right, as one continuous pen stroke
+   (no hand, just the ink appearing).
+
+   Nothing else on the page is changed.
+
+   Timing knobs (seconds after the tap):
+     --hw-start   when the first name starts writing
+     --hw-l1      how long "Isaac Dheeraj" takes to write
+     --hw-amp     how long the "&" takes
+     --hw-l2      how long "Angel Priscilla" takes
+   Want a different font? Change the name in the @import and in --hw-font.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&display=swap');
+
+#s1 .names {
+  --hw-font: 'Mrs Saint Delafield', 'Pinyon Script', cursive;
+  --hw-start: 7s;
+  --hw-l1: 2.2s;
+  --hw-amp: .6s;
+  --hw-l2: 2.4s;
+  --hw-ease: cubic-bezier(.45, .05, .4, 1);
+
+  /* soft-edged "ink front" used for the writing sweep */
+  --hw-mask: linear-gradient(98deg, #000 0, #000 44%, transparent 50%);
+
+  font-family: var(--hw-font);
+  font-weight: 400;
+  font-size: clamp(3.4rem, 17vw, 6rem);
+  line-height: .95;
+  letter-spacing: 0;
+}
+
+/* The old per-letter fade/slide is switched off for this heading only */
+#s1 .names .sp-l {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+/* Each name = one line, hidden behind the mask until it is written */
+#s1 .names > span {
+  display: block;
+  /* extra room so long loops / descenders are never clipped by the mask */
+  padding: .12em .25em .3em;
+  margin: -.12em -.25em -.3em;
+
+  -webkit-mask-image: var(--hw-mask);
+          mask-image: var(--hw-mask);
+  -webkit-mask-size: 300% 100%;
+          mask-size: 300% 100%;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-position: 100% 0;
+          mask-position: 100% 0;
+}
+
+/* The "&" uses the same script and is written between the two names */
+#s1 .names .amp {
+  font-family: var(--hw-font);
+  font-style: normal;
+  font-size: .5em;
+  line-height: 1;
+  margin: .05em 0;
+  padding: .1em .3em .2em;
+  opacity: 0;
+}
+
+/* ---------- Writing sequence (starts when the envelope opens) ---------- */
+#s1.open .names > span:first-of-type {
+  animation: hw-write var(--hw-l1) var(--hw-ease) var(--hw-start) both;
+}
+
+#s1.open .names .amp {
+  opacity: 1;
+  -webkit-mask-image: var(--hw-mask);
+          mask-image: var(--hw-mask);
+  -webkit-mask-size: 300% 100%;
+          mask-size: 300% 100%;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-position: 100% 0;
+          mask-position: 100% 0;
+  animation: hw-write var(--hw-amp) var(--hw-ease)
+             calc(var(--hw-start) + var(--hw-l1) + .2s) both;
+}
+
+#s1.open .names > span:last-of-type {
+  animation: hw-write var(--hw-l2) var(--hw-ease)
+             calc(var(--hw-start) + var(--hw-l1) + var(--hw-amp) + .4s) both;
+}
+
+/* The pen sweep: reveals the line left to right with a soft ink edge */
+@keyframes hw-write {
+  from { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
+  to   { -webkit-mask-position: 0 0;    mask-position: 0 0; }
+}
+
+/* Restored session (already opened earlier): show the names instantly */
+#s1.skip .names > span,
+#s1.skip .names .amp {
+  animation: none !important;
+  opacity: 1 !important;
+  -webkit-mask-image: none !important;
+          mask-image: none !important;
+}
+
+/* Reduced motion: no writing, just show the names */
+@media (prefers-reduced-motion: reduce) {
+  #s1 .names > span,
+  #s1 .names .amp {
+    animation: none !important;
+    opacity: 1 !important;
+    -webkit-mask-image: none !important;
+            mask-image: none !important;
+  }
+}
