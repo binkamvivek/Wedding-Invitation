@@ -159,3 +159,4 @@ fs.unlinkSync(PNG_TMP);
 
 const kb = Math.round(fs.statSync(OUT).size / 1024);
 console.log(`✅ Created ${OUT}  (${kb} KB)`);
+
