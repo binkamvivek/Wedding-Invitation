@@ -2,6 +2,7 @@
 import './bg-music.js';
 import EnvelopeIntro from './envelope-animation.js';
 import './painterly.js';
+import './open-counter.js';
 
 (() => {
 'use strict';
