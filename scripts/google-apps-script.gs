@@ -20,13 +20,16 @@ function doPost(e) {
 
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getSheetByName(LOG_SHEET) || ss.getSheets()[0];
+  var tz = ss.getSpreadsheetTimeZone();
   var lock = LockService.getScriptLock();
   lock.tryLock(10000);
   try {
     var now = new Date();
+    var stamp = Utilities.formatDate(now, tz, 'dd MMM yyyy, h:mm:ss a');
     var updated = false;
 
-    // If this Device ID already exists in column D, update that row and increment column E
+    // If this Device ID already exists in column D, update that row,
+    // increment column E, and append the new timestamp in column F.
     if (id) {
       var lastRow = sheet.getLastRow();
       if (lastRow >= 2) {
@@ -35,10 +38,17 @@ function doPost(e) {
           if (String(ids[i][0]).trim() === id) {
             var rowNum = i + 2;
             var currentCount = Number(sheet.getRange(rowNum, 5).getValue()) || 1;
-            sheet.getRange(rowNum, 1).setValue(now);
+            var prevStamps = String(sheet.getRange(rowNum, 6).getValue() || '').trim();
+            if (!prevStamps) {
+              var firstVal = sheet.getRange(rowNum, 1).getValue();
+              prevStamps = firstVal instanceof Date
+                ? Utilities.formatDate(firstVal, tz, 'dd MMM yyyy, h:mm:ss a')
+                : String(firstVal || '');
+            }
             if (device) sheet.getRange(rowNum, 2).setValue(device);
             if (browser) sheet.getRange(rowNum, 3).setValue(browser);
             sheet.getRange(rowNum, 5).setValue(currentCount + 1);
+            sheet.getRange(rowNum, 6).setValue(prevStamps ? prevStamps + '\n' + stamp : stamp);
             updated = true;
             break;
           }
@@ -47,7 +57,7 @@ function doPost(e) {
     }
 
     if (!updated) {
-      sheet.appendRow([now, device, browser, id, 1]);
+      sheet.appendRow([now, device, browser, id, 1, stamp]);
     }
   } finally {
     lock.releaseLock();
@@ -58,29 +68,39 @@ function doPost(e) {
 // Run this ONCE. It tidies your sheet and builds the summary. Your old rows are kept.
 function setupSheet() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var tz = ss.getSpreadsheetTimeZone();
 
   // ---- Tab 1: the log ----
   var log = ss.getSheetByName(LOG_SHEET);
   if (!log) { log = ss.getSheets()[0]; log.setName(LOG_SHEET); }
-  var extra = log.getMaxColumns() - 5;
-  if (extra > 0) log.getRange(1, 6, log.getMaxRows(), extra).clear();   // remove old helper cells
-  log.getRange('A1:E1').setValues([['Open at', 'Device', 'Browser', 'Device ID', 'Times it opened']])
+  var extra = log.getMaxColumns() - 6;
+  if (extra > 0) log.getRange(1, 7, log.getMaxRows(), extra).clear();   // remove old helper cells
+  log.getRange('A1:F1').setValues([['Open at', 'Device', 'Browser', 'Device ID', 'Times it opened', 'Timestamps']])
      .setFontWeight('bold');
   log.setFrozenRows(1);
   log.getRange('A2:A').setNumberFormat('dd mmm yyyy, h:mm:ss am/pm');
-  log.setColumnWidth(1, 190); log.setColumnWidth(2, 150); log.setColumnWidth(3, 130); log.setColumnWidth(4, 110); log.setColumnWidth(5, 130);
+  log.getRange('F2:F').setWrap(true);
+  log.setColumnWidth(1, 190); log.setColumnWidth(2, 150); log.setColumnWidth(3, 130);
+  log.setColumnWidth(4, 110); log.setColumnWidth(5, 130); log.setColumnWidth(6, 210);
 
-  // Backfill column E = 1 for any existing rows that don't have a count yet
+  // Backfill column E = 1 and column F = timestamp for existing rows
   var lastRow = log.getLastRow();
   if (lastRow >= 2) {
     var colA = log.getRange(2, 1, lastRow - 1, 1).getValues();
     var colE = log.getRange(2, 5, lastRow - 1, 1).getValues();
+    var colF = log.getRange(2, 6, lastRow - 1, 1).getValues();
     for (var i = 0; i < colA.length; i++) {
-      if (colA[i][0] && !colE[i][0]) {
-        colE[i][0] = 1;
+      if (colA[i][0]) {
+        if (!colE[i][0]) colE[i][0] = 1;
+        if (!colF[i][0]) {
+          colF[i][0] = colA[i][0] instanceof Date
+            ? Utilities.formatDate(colA[i][0], tz, 'dd MMM yyyy, h:mm:ss a')
+            : String(colA[i][0]);
+        }
       }
     }
     log.getRange(2, 5, lastRow - 1, 1).setValues(colE);
+    log.getRange(2, 6, lastRow - 1, 1).setValues(colF);
   }
 
   // ---- Tab 2: the summary ----
