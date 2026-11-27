@@ -1,6 +1,6 @@
 // open-counter.js
 // Counts how many times the invitation envelope is opened.
-// No names, no personal data: each open adds ONE row (date + device + browser) to your Google Sheet.
+// No names, no personal data: each open adds ONE row (date + device + browser + anonymous device ID) to your Google Sheet.
 //
 // Paste your Google Apps Script "Web app URL" below. Leave it empty to switch counting off.
 const ENDPOINT = 'https://script.google.com/macros/s/AKfycbw5kHNlWA3jBRNJG2FtrVZJVLeoYe2lQZE87J2nsDtJqMGcEeNmGFfcZU6yH23O_0yM/exec';
@@ -33,12 +33,24 @@ const ENDPOINT = 'https://script.google.com/macros/s/AKfycbw5kHNlWA3jBRNJG2FtrVZ
     return { device: device, browser: browser };
   }
 
+  // Anonymous ID for this phone/computer (random, stored in the browser, no name or number).
+  function deviceId() {
+    try {
+      let id = localStorage.getItem('oc-id');
+      if (!id) {
+        id = (window.crypto && crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2) + Date.now()).replace(/-/g, '').slice(0, 8);
+        localStorage.setItem('oc-id', id);
+      }
+      return id;
+    } catch (e) { return ''; }
+  }
+
   let sent = false;
   function send() {
     if (sent) return;
     sent = true;
     try {
-      fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(detect()) })
+      fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(Object.assign(detect(), { id: deviceId() })) })
         .catch(function () {});
     } catch (e) {}
   }
