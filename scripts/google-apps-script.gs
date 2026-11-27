@@ -58,6 +58,7 @@ function doPost(e) {
 
     if (!updated) {
       sheet.appendRow([now, device, browser, id, 1, stamp]);
+      sheet.getRange(sheet.getLastRow(), 1).setNumberFormat('dd mmm yyyy, h:mm:ss am/pm');
     }
   } finally {
     lock.releaseLock();
