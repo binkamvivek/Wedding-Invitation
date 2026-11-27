@@ -23,7 +23,32 @@ function doPost(e) {
   var lock = LockService.getScriptLock();
   lock.tryLock(10000);
   try {
-    sheet.appendRow([new Date(), device, browser, id]);
+    var now = new Date();
+    var updated = false;
+
+    // If this Device ID already exists in column D, update that row and increment column E
+    if (id) {
+      var lastRow = sheet.getLastRow();
+      if (lastRow >= 2) {
+        var ids = sheet.getRange(2, 4, lastRow - 1, 1).getValues();
+        for (var i = 0; i < ids.length; i++) {
+          if (String(ids[i][0]).trim() === id) {
+            var rowNum = i + 2;
+            var currentCount = Number(sheet.getRange(rowNum, 5).getValue()) || 1;
+            sheet.getRange(rowNum, 1).setValue(now);
+            if (device) sheet.getRange(rowNum, 2).setValue(device);
+            if (browser) sheet.getRange(rowNum, 3).setValue(browser);
+            sheet.getRange(rowNum, 5).setValue(currentCount + 1);
+            updated = true;
+            break;
+          }
+        }
+      }
+    }
+
+    if (!updated) {
+      sheet.appendRow([now, device, browser, id, 1]);
+    }
   } finally {
     lock.releaseLock();
   }
@@ -37,13 +62,26 @@ function setupSheet() {
   // ---- Tab 1: the log ----
   var log = ss.getSheetByName(LOG_SHEET);
   if (!log) { log = ss.getSheets()[0]; log.setName(LOG_SHEET); }
-  var extra = log.getMaxColumns() - 4;
-  if (extra > 0) log.getRange(1, 5, log.getMaxRows(), extra).clear();   // remove old helper cells
-  log.getRange('A1:D1').setValues([['Open at', 'Device', 'Browser', 'Device ID']])
+  var extra = log.getMaxColumns() - 5;
+  if (extra > 0) log.getRange(1, 6, log.getMaxRows(), extra).clear();   // remove old helper cells
+  log.getRange('A1:E1').setValues([['Open at', 'Device', 'Browser', 'Device ID', 'Times it opened']])
      .setFontWeight('bold');
   log.setFrozenRows(1);
   log.getRange('A2:A').setNumberFormat('dd mmm yyyy, h:mm:ss am/pm');
-  log.setColumnWidth(1, 190); log.setColumnWidth(2, 150); log.setColumnWidth(3, 130); log.setColumnWidth(4, 110);
+  log.setColumnWidth(1, 190); log.setColumnWidth(2, 150); log.setColumnWidth(3, 130); log.setColumnWidth(4, 110); log.setColumnWidth(5, 130);
+
+  // Backfill column E = 1 for any existing rows that don't have a count yet
+  var lastRow = log.getLastRow();
+  if (lastRow >= 2) {
+    var colA = log.getRange(2, 1, lastRow - 1, 1).getValues();
+    var colE = log.getRange(2, 5, lastRow - 1, 1).getValues();
+    for (var i = 0; i < colA.length; i++) {
+      if (colA[i][0] && !colE[i][0]) {
+        colE[i][0] = 1;
+      }
+    }
+    log.getRange(2, 5, lastRow - 1, 1).setValues(colE);
+  }
 
   // ---- Tab 2: the summary ----
   var sum = ss.getSheetByName(SUMMARY_SHEET);
@@ -51,14 +89,14 @@ function setupSheet() {
 
   // Opens per device (left)
   sum.getRange('A1').setFormula(
-    "=QUERY(Opens!B2:B,\"select B, count(B) where B <> '' group by B order by count(B) desc label B 'Device', count(B) 'Opens'\",0)");
+    "=QUERY(Opens!B2:E,\"select B, sum(E) where B <> '' group by B order by sum(E) desc label B 'Device', sum(E) 'Opens'\",0)");
   // Totals (right next to it)
   sum.getRange('D1:D2').setValues([['Total opens'], ['Different devices']]);
-  sum.getRange('E1').setFormula('=COUNTA(Opens!A2:A)');
+  sum.getRange('E1').setFormula('=SUM(Opens!E2:E)');
   sum.getRange('E2').setFormula('=COUNTUNIQUE(Opens!D2:D)');
   // Opens per browser (far right)
   sum.getRange('G1').setFormula(
-    "=QUERY(Opens!C2:C,\"select C, count(C) where C <> '' group by C order by count(C) desc label C 'Browser', count(C) 'Opens'\",0)");
+    "=QUERY(Opens!C2:E,\"select C, sum(E) where C <> '' group by C order by sum(E) desc label C 'Browser', sum(E) 'Opens'\",0)");
 
   // Look
   sum.getRange('A1:B1').setFontWeight('bold').setBorder(null, null, true, null, null, null);
