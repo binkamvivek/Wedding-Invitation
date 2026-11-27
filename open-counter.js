@@ -3,7 +3,7 @@
 // No names, no personal data: each open adds ONE row (date + device + browser + anonymous device ID) to your Google Sheet.
 //
 // Paste your Google Apps Script "Web app URL" below. Leave it empty to switch counting off.
-const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyoHsrPt22CfnNNjDeuQpTHIptSV6KES8-QQ-WCyMddYnIE4UlBzpROzvsGReYgLcm8/exec';
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbxVDxPDSlauDu5RK59ACuWVwSi5-L5DbfIxH69pSjq7SuIjR1CTw9WaOzRjl-mEWvrR/exec';
 
 (function () {
   if (!ENDPOINT) return;
